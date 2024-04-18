@@ -5,18 +5,20 @@ module reloj_10MHz(
     output logic LED_po
 );
 
-logic [23:0] cuenta; // declare a counter to keep track of time
+logic [23:0] cuenta = 0; // declare a counter to keep track of time
+logic estado_LED = 1;
 
-always @(posedge clk_i) 
-    begin
-        if (cuenta == 100) //10000000
-            begin
-                LED_po <= ~LED_po; // toggle the LED
-                cuenta <= 0; // reset the counter
-            end
-        else 
-            begin
-                cuenta <= cuenta + 1; // increment the counter
-            end
+always @(posedge clk_i) begin
+    if (cuenta == 100) begin //10000000
+        estado_LED <= ~estado_LED; // toggle the LED
+        cuenta <= 0; // reset the counter
     end
+    
+    else begin 
+        cuenta <= cuenta + 1; // increment the counter
+    end
+end
+  
+assign LED_po = estado_LED;
+
 endmodule
