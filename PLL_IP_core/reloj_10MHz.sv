@@ -6,7 +6,7 @@ module reloj_10MHz(
 );
 
 logic [23:0] cuenta = 0; // declare a counter to keep track of time
-logic estado_LED = 1;
+logic estado_LED = 0;
 
 always @(posedge clk_i) begin
     if (cuenta == 100) begin //10000000
