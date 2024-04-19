@@ -2,21 +2,23 @@
 
 module sincronizador(
     input logic clk,
-    input logic button_i, 
-    output logic button_o 
+    input logic boton_i, 
+    output logic boton_o 
 );
 
-    logic button_prev; 
+    logic boton_prev; 
 
     always_ff @(posedge clk) begin
-        button_prev <= button_i;
+        boton_prev <= boton_i;
     end
 
     always_comb begin
-        if (button_prev == 1'b0 && button_i == 1'b1) begin
-            button_o = 1'b1; 
-        end else begin
-            button_o = 1'b0;
+        if (boton_prev == 0 && boton_i == 1) begin
+            boton_o = 1; 
+        end 
+        
+        else begin
+            boton_o = 0;
         end
     end
 

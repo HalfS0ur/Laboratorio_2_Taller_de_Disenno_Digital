@@ -14,8 +14,7 @@ module debouncer(
     
     always @(posedge clk)
     begin
-        if (boton_pi != boton_pasado)
-        begin
+        if (boton_pi != boton_pasado) begin
             cuenta <= cuenta + 1;
                 if (cuenta == (2**CUENTA_DB)-1)
                 begin
@@ -24,8 +23,7 @@ module debouncer(
                 end
         end
         
-        else
-        begin
+        else begin
             cuenta <= 0;
             boton_debounceado <= boton_pasado;
         end

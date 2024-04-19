@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module top(
-    input logic clk_i, //Reloj de 10MHz
+    input logic clk_i,
     input logic boton_pi,
     input logic reset_pi,
     output logic [7:0]conta_o,
@@ -17,8 +17,8 @@ module top(
     
     sincronizador sync(
     .clk(clk_i),
-    .button_i(boton_debounce_o),
-    .button_o(boton_o));
+    .boton_i(boton_debounce_o),
+    .boton_o(boton_o));
     
     contador cuenta(
     .clk(clk_i),
