@@ -17,9 +17,9 @@ module sincronizador(
     // detect button rising edges and generate one-clock-cycle pulse
     always_comb begin
         if (button_prev == 1'b0 && button_i == 1'b1) begin
-            button_o <= 1'b1; // generate one-clock-cycle pulse on rising edge
+            button_o = 1'b1; // generate one-clock-cycle pulse on rising edge
         end else begin
-            button_o <= 1'b0; // output low otherwise
+            button_o = 1'b0; // output low otherwise
         end
     end
 

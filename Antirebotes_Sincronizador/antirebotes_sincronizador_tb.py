@@ -13,6 +13,12 @@ async def prueba_contador(dut):
     cuenta = 0
     await cocotb.start(generar_reloj_10MHz(dut))
     dut.reset_pi.value = 1
-    await Timer (1, units = 'us')
+    dut.boton_pi.value = 0
+    await Timer (100, units = 'us')
     dut.reset_pi.value = 0
-    await Timer (1, units = 'us')
+    dut.boton_pi.value = 0
+    await Timer (100, units = 'us')
+
+
+    dut.boton_pi.value = 1
+    await Timer (5000, units = 'us')
