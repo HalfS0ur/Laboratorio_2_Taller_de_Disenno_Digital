@@ -1,1 +1,1 @@
-# Laboratorio_2_Taller_de_Disenno_Digital
+# Laboratorio 2 Taller de Diseño Digital
