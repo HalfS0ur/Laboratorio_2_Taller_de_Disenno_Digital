@@ -1,25 +1,22 @@
 `timescale 1ns / 1ps
 
 module sincronizador(
-    input logic clk, // clock signal
-    input logic button_i, // synchronized input from previous module
-    output logic button_o // synchronized output pulse
+    input logic clk,
+    input logic button_i, 
+    output logic button_o 
 );
 
-    // define internal signals
-    logic button_prev; // previous synchronized button state
+    logic button_prev; 
 
-    // synchronize button input to clock
     always_ff @(posedge clk) begin
         button_prev <= button_i;
     end
 
-    // detect button rising edges and generate one-clock-cycle pulse
     always_comb begin
         if (button_prev == 1'b0 && button_i == 1'b1) begin
-            button_o = 1'b1; // generate one-clock-cycle pulse on rising edge
+            button_o = 1'b1; 
         end else begin
-            button_o = 1'b0; // output low otherwise
+            button_o = 1'b0;
         end
     end
 
