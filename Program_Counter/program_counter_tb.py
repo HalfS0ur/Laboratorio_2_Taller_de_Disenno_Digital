@@ -1,5 +1,5 @@
 import cocotb
-from cocotb.triggers import FallingEdge, Timer
+from cocotb.triggers import FallingEdge, Timer, RisingEdge
 
 import random
 
@@ -27,7 +27,7 @@ async def prueba_reset(dut):
 @cocotb.test()
 async def prueba_cuenta_hold(dut):
     pc_actual = 4
-    pc_salto = 0000000000000000
+    pc_salto = 0
     operacion = 2
     for test in range (5):  #32768
         await cocotb.start(generar_reloj_10MHz(dut))
@@ -48,7 +48,7 @@ async def prueba_cuenta_hold(dut):
 
     await Timer (4, units = 'us')
     dut.pc_op_i.value = 0
-    await Timer (5, units = 'us')
+    await Timer (4, units = 'us')
 
 @cocotb.test()
 async def prueba_salto(dut):
@@ -56,16 +56,17 @@ async def prueba_salto(dut):
     pc_salto = 0
     dir_salto = 0
     operacion = 3
-    #await Timer (10, units = 'us')
     for test in range (256):
         await cocotb.start(generar_reloj_10MHz(dut))
         dut.pc_op_i.value = operacion
         dir_salto = random.randint(0, 65536)
         dut.pc_i.value = dir_salto
+        await RisingEdge(dut.clk_i)
         await FallingEdge(dut.clk_i)
 
         assert dut.pc_o.value == dir_salto, f"El valor de pc_o esperado al realizar el salto es {dir_salto}, se recibió {dut.pc_o.value}"
 
-        dir_salto = random.randint
+        pc_salto = pc_actual + 4
+        pc_actual = dir_salto
 
-        #revisar temporizacion
+        assert dut.pcinc_o.value == pc_salto, f"El valor de pcinc_o esperado al realizar el salto es {pc_salto}, se recibió {dut.pcinc_o.value}"
