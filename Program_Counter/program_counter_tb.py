@@ -10,6 +10,7 @@ async def generar_reloj_10MHz (dut):
         dut.clk_i.value = 1
         await Timer (100, units = 'ns')
 
+
 @cocotb.test()
 async def prueba_reset(dut):
     pc_actual = 0
@@ -49,6 +50,7 @@ async def prueba_cuenta_hold(dut):
     await Timer (4, units = 'us')
     dut.pc_op_i.value = 0
     await Timer (4, units = 'us')
+    
 
 @cocotb.test()
 async def prueba_salto(dut):
