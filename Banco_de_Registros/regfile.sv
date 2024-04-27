@@ -1,7 +1,9 @@
 `timescale 1ns / 1ps
 
-module regfile#(parameter ANCHO = 32, 
-parameter LARGO = 5)(
+module regfile
+    #(parameter ANCHO = 32, 
+                LARGO = 5
+    )(
     input  logic             clk_i,
     input  logic             reset_i,
     input  logic             we_i,
