@@ -125,13 +125,11 @@ async def prueba_escritura_intermitente(dut):
             break
     
     cuenta_rs2 = (len(lista_direcciones) - 1)
-    print(estado_we)
-    print (cuenta_rs2)
 
     for verificacion in range (NUMERO_REGISTROS):
         dut.we_i.value = 0
-        dut.addr_rs1 = lista_direcciones[verificacion]
-        dut.addr_rs2 = lista_direcciones[cuenta_rs2]
+        dut.addr_rs1.value = lista_direcciones[verificacion]
+        dut.addr_rs2.value = lista_direcciones[cuenta_rs2]
 
         await FallingEdge (dut.clk_i)
 
@@ -143,7 +141,9 @@ async def prueba_escritura_intermitente(dut):
 
         elif (lista_direcciones[verificacion] == 0):
             assert dut.rs1.value == 0, f"El valor de rs1 esperado en el registro 0 es 0, se recibió {dut.rs1.value}"
-            assert dut.rs2.value == 0, f"El valor de rs1 esperado en el registro 0 es 0, se recibió {dut.rs2.value}"
+
+        elif (lista_direcciones[cuenta_rs2] == 0):
+            assert dut.rs2.value == 0, f"El valor de rs2 esperado en el registro 0 es 0, se recibió {dut.rs2.value}"
 
         else:
             assert dut.rs1.value == lista_datos[verificacion], f"El valor de rs1 esperado es {lista_datos[verificacion]}, se recibió {dut.rs1.value}"
