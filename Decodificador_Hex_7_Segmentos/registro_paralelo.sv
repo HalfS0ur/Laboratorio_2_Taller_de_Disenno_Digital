@@ -13,11 +13,11 @@ module registro_paralelo(
     
     always_ff @(posedge clk_i or posedge reset_i) begin
         if (reset_i) begin
-            data = 0;
+            data <= 0;
         end
         
         else if (we_i) begin
-            data = data_i;
+            data <= data_i;
         end
     end
     
