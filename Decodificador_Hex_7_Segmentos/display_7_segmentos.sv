@@ -11,40 +11,34 @@ module display_7_segmentos(
     
     logic [3:0] numHex = 0;
     logic [1:0] display_2 = 0;  
-    logic [15:0] dato_salida = 0;
     
-    always_ff @(posedge clk_i or posedge reset_i) begin
+    always @(posedge clk_i or posedge reset_i) begin
         if (reset_i) begin
-            dato_salida <= 0;
-            an_o <= 0;
-        end 
-        
+            display_2 <= 0;
+        end
+
         else begin
-            dato_salida <= dato_i[15:0];
+            display_2 <= display_2 + 1'b1;
         end
     end
     
-    always @(posedge clk_i) begin
-        display_2 <= display_2 + 1'b1;
-    end
-    
     always @(*) begin
-        case (display_2)
-            2'b00: begin
-                an_o = 4'b1110;
-                numHex = dato_salida[3:0];
-            end           
+        case (display_2)           
             2'b01: begin
                 an_o = 4'b1101;
-                numHex = dato_salida[7:4];
+                numHex = dato_i[15:12];
             end            
             2'b10: begin
                 an_o = 4'b1011;
-                numHex = dato_salida[11:8];
+                numHex = dato_i[11:8];
             end         
             2'b11: begin
                 an_o = 4'b0111;
-                numHex = dato_salida[15:12];
+                numHex = dato_i[7:4];
+            end
+            2'b00: begin
+                an_o = 4'b1110;
+                numHex = dato_i[3:0];
             end
         endcase
     end
