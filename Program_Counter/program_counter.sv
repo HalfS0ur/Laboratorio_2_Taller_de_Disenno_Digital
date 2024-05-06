@@ -9,7 +9,7 @@ module program_counter #(parameter ANCHO = 16)(
     );
     
     logic [ANCHO-1:0] pc_actual = 0;
-    logic [ANCHO-1:0] pc_siguiente = 0; //.
+    logic [ANCHO-1:0] pc_siguiente = 0;
     
     always_ff @(posedge clk_i) begin
         case(pc_op_i)
