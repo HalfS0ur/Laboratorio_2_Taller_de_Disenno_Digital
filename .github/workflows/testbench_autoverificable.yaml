@@ -1,1 +1,36 @@
-
+name: Testbench autoverificable
+run-name: ${{ github.actor }} está corriendo un testbench
+on: [push]
+jobs: 
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      antirebotes_sinc: ${{ steps.filter.outputs.antirebotes_sinc }}
+      regfile: ${{ steps.filter.outputs.regfile }}
+      deco_hex_7s: ${{ steps.filter.outputs.deco_hex_7s }}
+      teclado_hex : ${{ steps.filter.outputs.teclado_hex }}
+      pll : ${{ steps.filter.outputs.pll }} 
+      pc : ${{ steps.filter.outputs.pc }} 
+      unidad_calculo : ${{ steps.filter.outputs.unidad_calculo }} 
+    steps:
+    - name: checking out repository code
+      uses: actions/checkout@v4
+    - name: checking for changes
+      uses: dorny/paths-filter@v3
+      id: filter
+      with:
+        filters: |
+          antirebotes_sinc:
+            - 'Antirebotes_Sincronizador/**/*.sv'
+          regfile:
+            - 'Banco_de_Registros/**/*.sv'
+          deco_hex_7s:
+            - 'Decodificador_Hex_7_Segmentos/**/*.sv'
+          teclado_hex:
+            - 'Interfaz_Teclado_Hex/**/*.sv'
+          pll:
+            - 'PLL_IP_core/**/*.sv'
+          pc:
+            - 'Program_Counter/**/*.sv'
+          unidad_calculo:
+            - 'Unidad_de_Calculo/**/*.sv'
