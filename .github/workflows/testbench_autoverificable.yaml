@@ -34,3 +34,23 @@ jobs:
             - 'Program_Counter/**/*.sv'
           unidad_calculo:
             - 'Unidad_de_Calculo/**/*.sv'
+
+  antirebotes_sinc:
+    needs: changes
+    if: ${{ needs.changes.outputs.antirebotes_sinc == 'true' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Antirebotes_Sincronizador
+    steps:
+      - name: Descargando código del repositorio
+        uses: actions/checkout@v4
+      - name: Instalando iverilog
+        run: sudo apt-get install iverilog
+      - name: Configurando Python 3.10
+        uses: actions/setup-python@v5
+        with: 
+          python-version: '3.10'
+      - name: Instalando dependencias
+        run: pip install cocotb
+      - run: make
