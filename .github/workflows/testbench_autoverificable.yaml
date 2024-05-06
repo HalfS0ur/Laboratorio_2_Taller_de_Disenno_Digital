@@ -54,3 +54,123 @@ jobs:
       - name: Instalando dependencias
         run: pip install cocotb
       - run: make
+
+  regfile:
+    needs: changes
+    if: ${{ needs.changes.outputs.antirebotes_sinc == 'regfile' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Banco_de_Registros
+    steps:
+      - name: Descargando código del repositorio
+        uses: actions/checkout@v4
+      - name: Instalando iverilog
+        run: sudo apt-get install iverilog
+      - name: Configurando Python 3.10
+        uses: actions/setup-python@v5
+        with: 
+          python-version: '3.10'
+      - name: Instalando dependencias
+        run: pip install cocotb
+      - run: make
+
+  deco_7s:
+    needs: changes
+    if: ${{ needs.changes.outputs.deco_hex_7s == 'true' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Decodificador_Hex_7_Segmentos
+    steps:
+      - name: Descargando código del repositorio
+        uses: actions/checkout@v4
+      - name: Instalando iverilog
+        run: sudo apt-get install iverilog
+      - name: Configurando Python 3.10
+        uses: actions/setup-python@v5
+        with: 
+          python-version: '3.10'
+      - name: Instalando dependencias
+        run: pip install cocotb
+      - run: make
+
+  teclado_hex:
+    needs: changes
+    if: ${{ needs.changes.outputs.teclado_hex == 'true' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Interfaz_Teclado_Hex
+    steps:
+      - name: Descargando código del repositorio
+        uses: actions/checkout@v4
+      - name: Instalando iverilog
+        run: sudo apt-get install iverilog
+      - name: Configurando Python 3.10
+        uses: actions/setup-python@v5
+        with: 
+          python-version: '3.10'
+      - name: Instalando dependencias
+        run: pip install cocotb
+      - run: make
+
+  pll:
+    needs: changes
+    if: ${{ needs.changes.outputs.pll == 'true' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./PLL_IP_core
+    steps:
+      - name: Descargando código del repositorio
+        uses: actions/checkout@v4
+      - name: Instalando iverilog
+        run: sudo apt-get install iverilog
+      - name: Configurando Python 3.10
+        uses: actions/setup-python@v5
+        with: 
+          python-version: '3.10'
+      - name: Instalando dependencias
+        run: pip install cocotb
+      - run: make
+
+  pc:
+    needs: changes
+    if: ${{ needs.changes.outputs.pc == 'true' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Program_Counter
+    steps:
+      - name: Descargando código del repositorio
+        uses: actions/checkout@v4
+      - name: Instalando iverilog
+        run: sudo apt-get install iverilog
+      - name: Configurando Python 3.10
+        uses: actions/setup-python@v5
+        with: 
+          python-version: '3.10'
+      - name: Instalando dependencias
+        run: pip install cocotb
+      - run: make
+
+  unidad_calculo:
+    needs: changes
+    if: ${{ needs.changes.outputs.unidad_calculo == 'true' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Unidad_de_Calculo
+    steps:
+      - name: Descargando código del repositorio
+        uses: actions/checkout@v4
+      - name: Instalando iverilog
+        run: sudo apt-get install iverilog
+      - name: Configurando Python 3.10
+        uses: actions/setup-python@v5
+        with: 
+          python-version: '3.10'
+      - name: Instalando dependencias
+        run: pip install cocotb
+      - run: make
