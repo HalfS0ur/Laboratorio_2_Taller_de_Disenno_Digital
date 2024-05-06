@@ -35,7 +35,7 @@ module display_7_segmentos(
                 numHex = dato_salida[3:0];
             end           
             2'b01: begin
-                an_o = 4'b1111;
+                an_o = 4'b1101;
                 numHex = dato_salida[7:4];
             end            
             2'b10: begin
