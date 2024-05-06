@@ -1,0 +1,16 @@
+# Makefile
+export PYTHONPATH := $(PWD):$(PYTHONPATH)
+
+TOPLEVEL_LANG = verilog
+
+VERILOG_SOURCES = $(PWD)/display_7_segmentos.sv \
+				  $(PWD)/registro_paralelo.sv \
+				  $(PWD)/top.sv
+
+TOPLEVEL = top
+
+MODULE = decodificador_7_segmentos_tb
+
+WAVES = 1
+
+include $(shell cocotb-config --makefiles)/Makefile.sim
