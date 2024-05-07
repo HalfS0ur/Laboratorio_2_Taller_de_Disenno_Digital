@@ -18,7 +18,7 @@ module top(
    contador_dos_bits contador(
        .clk_i(clk_i),
        .reset_i(reset_i),
-       .inhibit_i(inhibit_contador),
+       .inhibit_i(data_available),
        .cuenta_o(cuenta_dos_bits_o)
    );
    
