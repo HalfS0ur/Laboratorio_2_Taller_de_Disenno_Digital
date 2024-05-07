@@ -59,3 +59,19 @@ async def prueba_columna_11(dut):
     dut.dato_codificador_i.value = dato_codificador
     await FallingEdge(dut.data_available_o)
     assert dut.dato_codificado_o.value == valor_codificado
+    dut.pulso_teclas_pi.value = 0
+
+    await reiniciar_modulo(dut)
+    '''await RisingEdge(dut.clk_i)
+
+    dato_codificador = 1
+
+    valor_codificado = mapeo_key_encoding(procesar_datos(dato_codificador, valor_contador))
+
+    while dut.cuenta_dos_bits_o.value != 0:
+        await RisingEdge(dut.clk_i)
+
+    dut.pulso_teclas_pi.value = 1
+    dut.dato_codificador_i.value = dato_codificador
+    await Timer (2600, units = 'ns')
+    assert dut.dato_codificado_o.value == valor_codificado'''

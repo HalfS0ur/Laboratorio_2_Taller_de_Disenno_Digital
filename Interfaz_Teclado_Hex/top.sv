@@ -24,6 +24,7 @@ module top(
    
    deteccion_tecla deteccion_tecla(
        .clk_i(clk_i),
+       .reset_i(reset_i),
        .pulso_teclas_i(pulso_teclas_pi),
        .inhibit_o(inhibit_contador),
        .data_available_o(data_available)

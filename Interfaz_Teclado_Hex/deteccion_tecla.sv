@@ -2,6 +2,7 @@
 
 module deteccion_tecla(
     input logic clk_i,
+    input logic reset_i,
     input logic [3:0] pulso_teclas_i,
     
     output logic inhibit_o,
@@ -14,6 +15,7 @@ module deteccion_tecla(
     
     antirebotes antirebotes(
         .clk_i(clk_i),
+        .reset_i(reset_i),
         .boton0_pi(pulso_teclas_i[0]),
         .boton1_pi(pulso_teclas_i[1]),
         .boton2_pi(pulso_teclas_i[2]),
