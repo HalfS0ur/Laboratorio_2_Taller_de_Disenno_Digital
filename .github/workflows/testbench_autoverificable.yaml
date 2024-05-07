@@ -2,7 +2,7 @@ name: Testbench autoverificable
 run-name: ${{ github.actor }} está corriendo un testbench
 on: [push]
 jobs: 
-  Detectando Cambios en el Repositorio:
+  Deteccion_de_cambios:
     runs-on: ubuntu-latest
     outputs:
       antirebotes_sinc: ${{ steps.filter.outputs.antirebotes_sinc }}
@@ -36,7 +36,7 @@ jobs:
             - 'Unidad_de_Calculo/**/*.sv'
 
   antirebotes_sinc:
-    needs: changes
+    needs: Deteccion_de_cambios
     if: ${{ needs.changes.outputs.antirebotes_sinc == 'true' }}
     runs-on: ubuntu-latest
     defaults:
@@ -56,7 +56,7 @@ jobs:
       - run: make
 
   regfile:
-    needs: changes
+    needs: Deteccion_de_cambios
     if: ${{ needs.changes.outputs.antirebotes_sinc == 'regfile' }}
     runs-on: ubuntu-latest
     defaults:
@@ -76,7 +76,7 @@ jobs:
       - run: make
 
   deco_7s:
-    needs: changes
+    needs: Deteccion_de_cambios
     if: ${{ needs.changes.outputs.deco_hex_7s == 'true' }}
     runs-on: ubuntu-latest
     defaults:
@@ -96,7 +96,7 @@ jobs:
       - run: make
 
   teclado_hex:
-    needs: changes
+    needs: Deteccion_de_cambios
     if: ${{ needs.changes.outputs.teclado_hex == 'true' }}
     runs-on: ubuntu-latest
     defaults:
@@ -116,7 +116,7 @@ jobs:
       - run: make
 
   pll:
-    needs: changes
+    needs: Deteccion_de_cambios
     if: ${{ needs.changes.outputs.pll == 'true' }}
     runs-on: ubuntu-latest
     defaults:
@@ -136,7 +136,7 @@ jobs:
       - run: make
 
   pc:
-    needs: changes
+    needs: Deteccion_de_cambios
     if: ${{ needs.changes.outputs.pc == 'true' }}
     runs-on: ubuntu-latest
     defaults:
@@ -156,7 +156,7 @@ jobs:
       - run: make
 
   unidad_calculo:
-    needs: changes
+    needs: Deteccion_de_cambios
     if: ${{ needs.changes.outputs.unidad_calculo == 'true' }}
     runs-on: ubuntu-latest
     defaults:
