@@ -37,7 +37,7 @@ jobs:
 
   antirebotes_sinc:
     needs: Deteccion_de_cambios
-    if: ${{ needs.changes.outputs.antirebotes_sinc == 'true' }}
+    if: ${{ needs.Deteccion_de_cambios.outputs.antirebotes_sinc == 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -57,7 +57,7 @@ jobs:
 
   regfile:
     needs: Deteccion_de_cambios
-    if: ${{ needs.changes.outputs.antirebotes_sinc == 'regfile' }}
+    if: ${{ needs.Deteccion_de_cambios.outputs.antirebotes_sinc == 'regfile' }}
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -77,7 +77,7 @@ jobs:
 
   deco_7s:
     needs: Deteccion_de_cambios
-    if: ${{ needs.changes.outputs.deco_hex_7s == 'true' }}
+    if: ${{ needs.Deteccion_de_cambios.outputs.deco_hex_7s == 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -97,7 +97,7 @@ jobs:
 
   teclado_hex:
     needs: Deteccion_de_cambios
-    if: ${{ needs.changes.outputs.teclado_hex == 'true' }}
+    if: ${{ needs.Deteccion_de_cambios.outputs.teclado_hex == 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -117,7 +117,7 @@ jobs:
 
   pll:
     needs: Deteccion_de_cambios
-    if: ${{ needs.changes.outputs.pll == 'true' }}
+    if: ${{ needs.Deteccion_de_cambios.outputs.pll == 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -137,7 +137,7 @@ jobs:
 
   pc:
     needs: Deteccion_de_cambios
-    if: ${{ needs.changes.outputs.pc == 'true' }}
+    if: ${{ needs.Deteccion_de_cambios.outputs.pc == 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -157,7 +157,7 @@ jobs:
 
   unidad_calculo:
     needs: Deteccion_de_cambios
-    if: ${{ needs.changes.outputs.unidad_calculo == 'true' }}
+    if: ${{ needs.Deteccion_de_cambios.outputs.unidad_calculo == 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
