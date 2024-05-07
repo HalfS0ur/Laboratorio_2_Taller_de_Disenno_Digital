@@ -7,7 +7,7 @@ module display_7_segmentos(
     
     output logic [3:0]  an_o,
     output logic [6:0]  seg_o
-);
+    );
     
     logic [3:0] numHex = 0;
     logic [1:0] display_2 = 0;  
