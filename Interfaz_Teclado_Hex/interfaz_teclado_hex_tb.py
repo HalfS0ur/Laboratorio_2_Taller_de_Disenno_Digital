@@ -36,18 +36,21 @@ def mapeo_key_encoding(valor_teclado):
     }
         return mapeo.get(valor_teclado, int('1111', 2))
 
+async def procesar_datos(valor_codificador, valor_contador):
+     concatenacion = (valor_contador << 2) | valor_codificador
+     valor_binario = f'{concatenacion:04b}'
+     return valor_binario
+
 @cocotb.test()
 async def prueba_columna_11(dut):
     await cocotb.start(generar_reloj_10MHz(dut))
     await reiniciar_modulo(dut)
     await RisingEdge(dut.clk_i)
 
-    dato_codificador = 3
+    dato_codificador = 0
     valor_contador = 3
 
-    valor_concatenado = (valor_contador << 2) | dato_codificador
-    valor_binario = f'{valor_concatenado:04b}'
-    valor_codificado = mapeo_key_encoding(valor_binario)
+    valor_codificado = mapeo_key_encoding(procesar_datos(dato_codificador, valor_contador))
 
     while dut.cuenta_dos_bits_o.value != 0:
         await RisingEdge(dut.clk_i)
