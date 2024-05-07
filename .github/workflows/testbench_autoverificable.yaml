@@ -2,7 +2,7 @@ name: Testbench autoverificable
 run-name: ${{ github.actor }} está corriendo un testbench
 on: [push]
 jobs: 
-  changes:
+  Detectando Cambios en el Repositorio:
     runs-on: ubuntu-latest
     outputs:
       antirebotes_sinc: ${{ steps.filter.outputs.antirebotes_sinc }}
