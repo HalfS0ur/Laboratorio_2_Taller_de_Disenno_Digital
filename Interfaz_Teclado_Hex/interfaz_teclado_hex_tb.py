@@ -37,12 +37,12 @@ def mapeo_key_encoding(valor_teclado):
         return mapeo.get(valor_teclado, int('1111', 2))
 
 @cocotb.test()
-async def prueba_columna_11(dut):
+async def Prueba_tecla_0(dut):
     await cocotb.start(generar_reloj_10MHz(dut))
     await reiniciar_modulo(dut)
     await RisingEdge(dut.clk_i)
 
-    dato_codificador = 2
+    dato_codificador = 3
     valor_contador = 3
 
     valor_concatenado = (valor_contador << 2) | dato_codificador
@@ -57,10 +57,194 @@ async def prueba_columna_11(dut):
     await FallingEdge(dut.data_available_o)
     assert dut.dato_codificado_o.value == valor_codificado
     dut.pulso_teclas_pi.value = 0
- #######################################################################################3
+
 
 @cocotb.test()
-async def aver(dut):
+async def Prueba_tecla_1(dut):
+    await cocotb.start(generar_reloj_10MHz(dut))
+    await reiniciar_modulo(dut)
+    await RisingEdge(dut.clk_i)
+
+    dato_codificador = 0
+    valor_contador = 2
+
+    valor_concatenado = (valor_contador << 2) | dato_codificador
+    valor_binario = f'{valor_concatenado:04b}'
+    valor_codificado = mapeo_key_encoding(valor_binario)
+
+    while dut.cuenta_dos_bits_o.value != 3:
+        await RisingEdge(dut.clk_i)
+
+    dut.pulso_teclas_pi.value = 1
+    dut.dato_codificador_i.value = dato_codificador
+    await FallingEdge(dut.data_available_o)
+    assert dut.dato_codificado_o.value == valor_codificado
+    dut.pulso_teclas_pi.value = 0
+
+
+@cocotb.test()
+async def Prueba_tecla_2(dut):
+    await cocotb.start(generar_reloj_10MHz(dut))
+    await reiniciar_modulo(dut)
+    await RisingEdge(dut.clk_i)
+
+    dato_codificador = 3
+    valor_contador = 2
+
+    valor_concatenado = (valor_contador << 2) | dato_codificador
+    valor_binario = f'{valor_concatenado:04b}'
+    valor_codificado = mapeo_key_encoding(valor_binario)
+
+    while dut.cuenta_dos_bits_o.value != 3:
+        await RisingEdge(dut.clk_i)
+
+    dut.pulso_teclas_pi.value = 1
+    dut.dato_codificador_i.value = dato_codificador
+    await FallingEdge(dut.data_available_o)
+    assert dut.dato_codificado_o.value == valor_codificado
+    dut.pulso_teclas_pi.value = 0
+
+
+@cocotb.test()
+async def Prueba_tecla_3(dut):
+    await cocotb.start(generar_reloj_10MHz(dut))
+    await reiniciar_modulo(dut)
+    await RisingEdge(dut.clk_i)
+
+    dato_codificador = 2
+    valor_contador = 2
+
+    valor_concatenado = (valor_contador << 2) | dato_codificador
+    valor_binario = f'{valor_concatenado:04b}'
+    valor_codificado = mapeo_key_encoding(valor_binario)
+
+    while dut.cuenta_dos_bits_o.value != 3:
+        await RisingEdge(dut.clk_i)
+
+    dut.pulso_teclas_pi.value = 1
+    dut.dato_codificador_i.value = dato_codificador
+    await FallingEdge(dut.data_available_o)
+    assert dut.dato_codificado_o.value == valor_codificado
+    dut.pulso_teclas_pi.value = 0
+
+
+@cocotb.test()
+async def Prueba_tecla_4(dut):
+    await cocotb.start(generar_reloj_10MHz(dut))
+    await reiniciar_modulo(dut)
+    await RisingEdge(dut.clk_i)
+
+    dato_codificador = 0
+    valor_contador = 1
+
+    valor_concatenado = (valor_contador << 2) | dato_codificador
+    valor_binario = f'{valor_concatenado:04b}'
+    valor_codificado = mapeo_key_encoding(valor_binario)
+
+    while dut.cuenta_dos_bits_o.value != 2:
+        await RisingEdge(dut.clk_i)
+
+    dut.pulso_teclas_pi.value = 1
+    dut.dato_codificador_i.value = dato_codificador
+    await FallingEdge(dut.data_available_o)
+    assert dut.dato_codificado_o.value == valor_codificado
+    dut.pulso_teclas_pi.value = 0
+
+
+@cocotb.test()
+async def Prueba_tecla_5(dut):
+    await cocotb.start(generar_reloj_10MHz(dut))
+    await reiniciar_modulo(dut)
+    await RisingEdge(dut.clk_i)
+
+    dato_codificador = 1
+    valor_contador = 3
+
+    valor_concatenado = (valor_contador << 2) | dato_codificador
+    valor_binario = f'{valor_concatenado:04b}'
+    valor_codificado = mapeo_key_encoding(valor_binario)
+
+    while dut.cuenta_dos_bits_o.value != 0:
+        await RisingEdge(dut.clk_i)
+
+    dut.pulso_teclas_pi.value = 1
+    dut.dato_codificador_i.value = dato_codificador
+    await FallingEdge(dut.data_available_o)
+    assert dut.dato_codificado_o.value == valor_codificado
+    dut.pulso_teclas_pi.value = 0
+
+
+@cocotb.test()
+async def Prueba_tecla_6(dut):
+    await cocotb.start(generar_reloj_10MHz(dut))
+    await reiniciar_modulo(dut)
+    await RisingEdge(dut.clk_i)
+
+    dato_codificador = 2
+    valor_contador = 1
+
+    valor_concatenado = (valor_contador << 2) | dato_codificador
+    valor_binario = f'{valor_concatenado:04b}'
+    valor_codificado = mapeo_key_encoding(valor_binario)
+
+    while dut.cuenta_dos_bits_o.value != 2:
+        await RisingEdge(dut.clk_i)
+
+    dut.pulso_teclas_pi.value = 1
+    dut.dato_codificador_i.value = dato_codificador
+    await FallingEdge(dut.data_available_o)
+    assert dut.dato_codificado_o.value == valor_codificado
+    dut.pulso_teclas_pi.value = 0
+
+
+@cocotb.test()
+async def Prueba_tecla_7(dut):
+    await cocotb.start(generar_reloj_10MHz(dut))
+    await reiniciar_modulo(dut)
+    await RisingEdge(dut.clk_i)
+
+    dato_codificador = 0
+    valor_contador = 0
+
+    valor_concatenado = (valor_contador << 2) | dato_codificador
+    valor_binario = f'{valor_concatenado:04b}'
+    valor_codificado = mapeo_key_encoding(valor_binario)
+
+    while dut.cuenta_dos_bits_o.value != 1:
+        await RisingEdge(dut.clk_i)
+
+    dut.pulso_teclas_pi.value = 1
+    dut.dato_codificador_i.value = dato_codificador
+    await FallingEdge(dut.data_available_o)
+    assert dut.dato_codificado_o.value == valor_codificado
+    dut.pulso_teclas_pi.value = 0
+ #######################################################################################3 012301230123
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''@cocotb.test()
+async def prueba_columna_11(dut):
     await cocotb.start(generar_reloj_10MHz(dut))
     await reiniciar_modulo(dut)
     await RisingEdge(dut.clk_i)
@@ -83,3 +267,29 @@ async def aver(dut):
         dut.pulso_teclas_pi.value = 0
         await reiniciar_modulo(dut)
         await Timer (100, units = 'ns')
+
+
+@cocotb.test()
+async def prueba_columna_00(dut):
+    await cocotb.start(generar_reloj_10MHz(dut))
+    await reiniciar_modulo(dut)
+    await RisingEdge(dut.clk_i)
+
+    for test in range (4):
+        dato_codificador = test
+        valor_contador = 0
+
+        valor_concatenado = (valor_contador << 2) | dato_codificador
+        valor_binario = f'{valor_concatenado:04b}'
+        valor_codificado = mapeo_key_encoding(valor_binario)
+
+        while dut.cuenta_dos_bits_o.value != 1:
+            await RisingEdge(dut.clk_i)
+
+        dut.pulso_teclas_pi.value = 1
+        dut.dato_codificador_i.value = dato_codificador
+        await FallingEdge(dut.data_available_o)
+        assert dut.dato_codificado_o.value == valor_codificado
+        dut.pulso_teclas_pi.value = 0
+        await reiniciar_modulo(dut)
+        await Timer (100, units = 'ns')'''
