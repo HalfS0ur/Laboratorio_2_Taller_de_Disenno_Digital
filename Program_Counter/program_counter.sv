@@ -6,7 +6,7 @@ module program_counter #(parameter ANCHO = 16)(
     input   logic [ANCHO-1:0] pc_i,
     output  logic [ANCHO-1:0] pc_o,
     output  logic [ANCHO-1:0] pcinc_o
-    );
+);
     
     logic [ANCHO-1:0] pc_actual = 0;
     logic [ANCHO-1:0] pc_siguiente = 0;
