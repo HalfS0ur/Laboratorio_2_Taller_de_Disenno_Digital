@@ -46,7 +46,7 @@ async def prueba_dosplay_7_segmentos(dut):
     await RisingEdge(dut.clk_i)
 
 
-    NUMERO_PRUEBAS = 2**16 #16
+    NUMERO_PRUEBAS = 2**16
 
     for prueba in range (NUMERO_PRUEBAS):
         dato_entrada = prueba
