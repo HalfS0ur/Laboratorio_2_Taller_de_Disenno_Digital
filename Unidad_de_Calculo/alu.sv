@@ -32,6 +32,10 @@ module alu #(
               4'b1110: begin //Corrimiento a la izquierda            
                       ALUresult_o = ALUa_i << ALUb_i;                    
                   end
+                  
+              default: begin //Caso por defecto            
+                      ALUresult_o = 0;                    
+                  end
         endcase
         
     end
