@@ -261,7 +261,7 @@ module control(
                 rs1 = reg_rs1;
                 rs2 = reg_rs2;
                 aluop = aluop;
-                rd = rd + 1;
+                rd = rd + 1; //Hace que rd pase de 1 a 3?
                 we_regfile_o = 0;
                 led_o = {5'b01011, 1'b0, reg_op, 6'b0};
                 we_7seg_o = 0;
