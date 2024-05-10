@@ -26,20 +26,20 @@ module top(
     logic [15:0] alu_result;
     logic [15:0] dato_7_segmentos;
     
-    fsm_control control(
+    control control(
         .clk_i(clk_i),         
-        .rst_i(reset_i),         
-        .teclado_i(teclado_i),      
-        .key_detect_i(key_detect_i),   
-        .sw_i(sw_i),                                
-        .mux_o(seleccion_mux),          
-        .addr_rs1_o(addr_rs1),     
+        .reset_i(reset_i),         
+        .teclado_i(teclado_i),       
+        .key_detect_i(key_detect_i),    
+        .sw_i(sw_i),                             
+        .mux_o(seleccion_mux),           
+        .addr_rs1_o(addr_rs1),      
         .addr_rs2_o(addr_rs2),     
-        .addr_rd_o(addr_rd),      
-        .we_o(we_regfile),           
-        .alucont_o(alu_control),      
-        .flag_in(alu_flag),        
-        .led_o(led_o),          
+        .addr_rd_o(addr_rd),       
+        .we_regfile_o(we_regfile),    
+        .alucont_o(alu_control),       
+        .alu_flag_in_o(alu_flag),   
+        .led_o(led_o),           
         .we_7seg_o(we_7_segmentos)      
     );
     
@@ -74,7 +74,7 @@ module top(
         .clk_i(clk_i),   
         .we_i(we_7_segmentos),     
         .reset_i(reset_i),  
-        .data_i(rs1),                  
+        .data_i(rs2),                  
         .data_o(dato_7_segmentos)   
     );
     
