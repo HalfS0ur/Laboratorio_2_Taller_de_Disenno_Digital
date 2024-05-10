@@ -52,3 +52,10 @@ async def prueba(dut):
     dut.key_detect_i.value = 0
     dut.teclado_i.value = 15
     await Timer (200, units = 'ns')
+    await Timer (200, units = 'ns')
+    await Timer (200, units = 'ns')
+    await Timer (200, units = 'ns')
+    await Timer (200, units = 'ns')
+    await Timer (200, units = 'ns')
+    await Timer (200, units = 'ns')
+    await Timer (200, units = 'ns')
