@@ -26,7 +26,7 @@ module top(
     logic [15:0] alu_result;
     logic [15:0] dato_7_segmentos;
     
-    control control(
+    FSM_control control(
         .clk_i(clk_i),         
         .reset_i(reset_i),         
         .teclado_i(teclado_i),       
