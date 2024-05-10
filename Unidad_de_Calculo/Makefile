@@ -5,7 +5,7 @@ TOPLEVEL_LANG = verilog
 
 VERILOG_SOURCES = $(PWD)/alu.sv \
 				  $(PWD)/banco_de_registros.sv \
-				  $(PWD)/control.sv \
+				  $(PWD)/FSM_Control.sv \
 				  $(PWD)/display_7_segmentos.sv \
 				  $(PWD)/mux_2_1.sv \
 				  $(PWD)/registro_paralelo.sv \

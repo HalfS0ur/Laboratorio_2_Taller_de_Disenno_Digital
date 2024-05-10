@@ -28,7 +28,7 @@ async def prueba(dut):
     dut.key_detect_i.value = 1
     await Timer (200, units = 'ns') #rec_dato_1
     dut.key_detect_i.value = 0
-    dut.teclado_i.value = 1
+    dut.teclado_i.value = 2
     await Timer (200, units = 'ns') #grd dato 1
     await Timer (200, units = 'ns') #leer dato 1
     await Timer (200, units = 'ns') #most dato 1
@@ -36,13 +36,13 @@ async def prueba(dut):
     dut.key_detect_i.value = 1
     await Timer (200, units = 'ns') #rec op
     dut.key_detect_i.value = 0
-    dut.teclado_i.value = 13
+    dut.teclado_i.value = 10
     await Timer (200, units = 'ns') #most op
     await Timer (200, units = 'ns') #esp dato 2
     dut.key_detect_i.value = 1
     await Timer (200, units = 'ns') #rec_dato_2
     dut.key_detect_i.value = 0
-    dut.teclado_i.value = 2
+    dut.teclado_i.value = 5
     await Timer (200, units = 'ns')
     await Timer (200, units = 'ns') #grd dato 2
     await Timer (200, units = 'ns') #lee dato 2
