@@ -45,7 +45,7 @@ module top(
     
     mux_2_1 mux_2_1(
         .seleccion_i(seleccion_mux),
-        .entrada0_i(teclado_i), 
+        .entrada0_i({12'b0, teclado_i}), 
         .entrada1_i(alu_result), 
         .salida_o(data_in)    
     );
