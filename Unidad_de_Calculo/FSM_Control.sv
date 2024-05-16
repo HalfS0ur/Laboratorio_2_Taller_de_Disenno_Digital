@@ -551,7 +551,7 @@ module FSM_control(
                 addr_rs1_o <= reg_rs1;
                 addr_rs2_o <= reg_rs2;
                 aluop <= 0;
-                rd <= rd;
+                //rd <= rd;
                 we_regfile_o <= 0;
                 led_o <= 16'hFFFF;
                 we_7seg_o <= 0;
