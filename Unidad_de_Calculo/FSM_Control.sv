@@ -15,6 +15,7 @@ module FSM_control(
     output logic [3:0]     alucont_o,
     output logic           alu_flag_in_o,
     output logic [15:0]    led_o, 
+    output logic [5:0]     estado_o,
     output logic           we_7seg_o
     );
     
@@ -558,7 +559,7 @@ module FSM_control(
                 reg_op <= 0;
                 addr_rd_o <= rd;
                 alucont_o <= aluop;
-                state <= SEL_MODO;     
+                state <= INICIO;     
             end
             endcase
         end
@@ -571,4 +572,5 @@ module FSM_control(
     
     end
     assign alu_flag_in_o = 0;
+    assign estado_o = state;
 endmodule

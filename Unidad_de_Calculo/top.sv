@@ -20,6 +20,7 @@ module top(
     logic [4:0] addr_rd;
     logic [4:0] addr_rs1;
     logic [4:0] addr_rs2;
+    logic [5:0] estado;
     logic [15:0] data_in;
     logic [15:0] rs1;
     logic [15:0] rs2;
@@ -39,7 +40,8 @@ module top(
         .we_regfile_o(we_regfile),    
         .alucont_o(alu_control),       
         .alu_flag_in_o(alu_flag),   
-        .led_o(led_o),           
+        .led_o(led_o),   
+        .estado_o(estado),        
         .we_7seg_o(we_7_segmentos)      
     );
     
