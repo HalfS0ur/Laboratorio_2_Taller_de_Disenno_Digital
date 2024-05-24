@@ -11,12 +11,19 @@ module top(
     output logic [3:0] dato_codificado_o
     );
    
+   logic clk_10kHz;
    logic inhibit_contador;
    logic data_available;
    logic [3:0] dato_teclado;
+
+   clock_divider clock_divider(
+       .clk_i(clk_i),
+       .reset_i(reset_i),
+       .clk_o(clk_10kHz)
+   );
    
    contador_dos_bits contador(
-       .clk_i(clk_i),
+       .clk_i(clk_10kHz),
        .reset_i(reset_i),
        .inhibit_i(data_available),
        .cuenta_o(cuenta_dos_bits_o)
