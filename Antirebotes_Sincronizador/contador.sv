@@ -10,7 +10,7 @@ module contador (
     // define internal signals
     logic [7:0] count_reg = 0; // register to hold the count value
 
-    // reset the count value to 0 when the reset input is high.
+    // reset the count value to 0 when the reset input is high..
     always_ff @(posedge clk) begin
         if (reset_i == 1'b1) begin
             count_reg <= 8'b0;
