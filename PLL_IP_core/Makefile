@@ -2,7 +2,7 @@
 export PYTHONPATH := $(PWD):$(PYTHONPATH)
 
 TOPLEVEL_LANG = verilog
-VERILOG_SOURCES = $(PWD)/reloj_10MHz.sv
+VERILOG_SOURCES += $(PWD)/*.sv
 TOPLEVEL = reloj_10MHz
 MODULE = reloj_10MHz_tb
 WAVES = 1
