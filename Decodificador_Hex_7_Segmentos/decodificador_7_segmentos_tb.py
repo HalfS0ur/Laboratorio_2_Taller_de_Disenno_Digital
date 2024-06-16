@@ -1,12 +1,8 @@
 import cocotb
 from cocotb.triggers import Timer, FallingEdge, RisingEdge
+from cocotb.clock import Clock
 
-async def generar_reloj_10MHz(dut):
-    while True:
-        dut.clk_i.value = 0
-        await Timer (100, units = 'ns')
-        dut.clk_i.value = 1
-        await Timer (100, units = 'ns')
+NUMERO_PRUEBAS = 2**16
 
 async def reiniciar_modulo(dut):
     dut.reset_i.value = 1
@@ -14,12 +10,10 @@ async def reiniciar_modulo(dut):
     dut.data_i.value = 0
     await Timer (200, units = 'ns')
     dut.reset_i.value = 0
+    await RisingEdge(dut.clk_i)
 
-
-@cocotb.test()
-async def prueba_dosplay_7_segmentos(dut):
-    def mapeo_codificacion_display(segmento):
-        mapeo = {
+async def mapeo_codificacion_display(segmento):
+    mapeo = {
         '0000': int('1000000', 2),  # 0
         '0001': int('1111001', 2),  # 1
         '0010': int('0100100', 2),  # 2
@@ -37,16 +31,16 @@ async def prueba_dosplay_7_segmentos(dut):
         '1110': int('0000110', 2),  # E
         '1111': int('0001110', 2)   # F
     }
-        return mapeo.get(segmento, int('1111111', 2))
+
+    return mapeo.get(segmento, int('1111111', 2))
+
+@cocotb.test()
+async def prueba_dosplay_7_segmentos(dut):   
+    clock = Clock(dut.clk_i, 100, 'ns')
+    await cocotb.start(clock.start())
+    await (reiniciar_modulo(dut))
 
     indice_display = [13, 11, 7, 14]
-
-    await cocotb.start(generar_reloj_10MHz(dut))
-    await (reiniciar_modulo(dut))
-    await RisingEdge(dut.clk_i)
-
-
-    NUMERO_PRUEBAS = 2**16
 
     for prueba in range (NUMERO_PRUEBAS):
         dato_entrada = prueba
@@ -68,7 +62,7 @@ async def prueba_dosplay_7_segmentos(dut):
                 segmento = (dato_entrada >> 12) & 0xF
 
             segmento_binario = f'{segmento:04b}'
-            led = mapeo_codificacion_display(segmento_binario)
+            led = await(mapeo_codificacion_display(segmento_binario))
 
             await FallingEdge(dut.clk_i)
 

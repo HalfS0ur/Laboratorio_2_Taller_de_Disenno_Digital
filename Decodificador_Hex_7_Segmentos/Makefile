@@ -3,9 +3,7 @@ export PYTHONPATH := $(PWD):$(PYTHONPATH)
 
 TOPLEVEL_LANG = verilog
 
-VERILOG_SOURCES = $(PWD)/display_7_segmentos.sv \
-				  $(PWD)/registro_paralelo.sv \
-				  $(PWD)/top.sv
+VERILOG_SOURCES = $(PWD)/*.sv 
 
 TOPLEVEL = top
 
