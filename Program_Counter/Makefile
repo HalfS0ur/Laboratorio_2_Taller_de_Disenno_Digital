@@ -3,7 +3,7 @@ export PYTHONPATH := $(PWD):$(PYTHONPATH)
 
 TOPLEVEL_LANG = verilog
 
-VERILOG_SOURCES = $(PWD)/program_counter.sv
+VERILOG_SOURCES = $(PWD)/*.sv
 
 TOPLEVEL = program_counter
 
