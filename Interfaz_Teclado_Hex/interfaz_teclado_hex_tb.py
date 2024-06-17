@@ -36,13 +36,13 @@ def mapeo_key_encoding(valor_teclado):
         return mapeo.get(valor_teclado, int('1111', 2))
 
 
-'''@cocotb.test()
-async def aver(dut):
+@cocotb.test()
+async def prueba_16_teclas(dut):
     await iniciar_reloj(dut)
     await reiniciar_modulo(dut)
 
-    for contador in range(4):
-        for codificador in range (4):
+    for codificador in range(4):
+        for contador in range (4):
             valor_tecla = f'{((contador << 2)|codificador):04b}'
             valor_codificado = mapeo_key_encoding(valor_tecla)
 
@@ -55,114 +55,4 @@ async def aver(dut):
             await FallingEdge(dut.data_available_o)
             assert dut.dato_codificado_o.value == valor_codificado
             
-            dut.pulso_teclas_pi.value = 0'''
-
-
-@cocotb.test()
-async def prueba_columna_00(dut):
-    await iniciar_reloj(dut)
-    await reiniciar_modulo(dut)
-
-    for contador in range (4):
-        codificador = 0
-        valor_tecla = f'{((contador << 2)|codificador):04b}'
-        valor_codificado = mapeo_key_encoding(valor_tecla)
-
-        while dut.cuenta_dos_bits_o.value != contador:
-            await FallingEdge(dut.clk_i)
-
-        dut.pulso_teclas_pi.value = 1
-        dut.dato_codificador_i.value = codificador
-
-        await FallingEdge(dut.data_available_o)
-        assert dut.dato_codificado_o.value == valor_codificado
-        
-        dut.pulso_teclas_pi.value = 0
-
-
-@cocotb.test()
-async def prueba_columna_01(dut):
-    await iniciar_reloj(dut)
-    await reiniciar_modulo(dut)
-
-    for contador in range (4):
-        codificador = 1
-        valor_tecla = f'{((contador << 2)|codificador):04b}'
-        valor_codificado = mapeo_key_encoding(valor_tecla)
-
-        while dut.cuenta_dos_bits_o.value != contador:
-            await FallingEdge(dut.clk_i)
-
-        dut.pulso_teclas_pi.value = 1
-        dut.dato_codificador_i.value = codificador
-
-        await FallingEdge(dut.data_available_o)
-        assert dut.dato_codificado_o.value == valor_codificado
-        
-        dut.pulso_teclas_pi.value = 0
-
-
-@cocotb.test()
-async def prueba_columna_10(dut):
-    await iniciar_reloj(dut)
-    await reiniciar_modulo(dut)
-
-    for contador in range (4):
-        codificador = 2
-        valor_tecla = f'{((contador << 2)|codificador):04b}'
-        valor_codificado = mapeo_key_encoding(valor_tecla)
-
-        while dut.cuenta_dos_bits_o.value != contador:
-            await FallingEdge(dut.clk_i)
-
-        dut.pulso_teclas_pi.value = 1
-        dut.dato_codificador_i.value = codificador
-
-        await FallingEdge(dut.data_available_o)
-        assert dut.dato_codificado_o.value == valor_codificado
-        
-        dut.pulso_teclas_pi.value = 0
-
-
-@cocotb.test()
-async def prueba_columna_11(dut):
-    await iniciar_reloj(dut)
-    await reiniciar_modulo(dut)
-
-    for contador in range (4):
-        codificador = 3
-        valor_tecla = f'{((contador << 2)|codificador):04b}'
-        valor_codificado = mapeo_key_encoding(valor_tecla)
-
-        while dut.cuenta_dos_bits_o.value != contador:
-            await FallingEdge(dut.clk_i)
-
-        dut.pulso_teclas_pi.value = 1
-        dut.dato_codificador_i.value = codificador
-
-        await FallingEdge(dut.data_available_o)
-        assert dut.dato_codificado_o.value == valor_codificado
-        
-        dut.pulso_teclas_pi.value = 0
-
-'''@cocotb.test()
-async def aver(dut):
-    await iniciar_reloj(dut)
-    await reiniciar_modulo(dut)
-
-    for test in range(4):
-        valor_codificador = test
-        valor_contador = 3
-
-        valor_concatenado = (valor_contador << 2) | valor_codificador
-        valor_binario = f'{valor_concatenado:04b}'
-        valor_codificado = mapeo_key_encoding(valor_binario)
-
-        while dut.cuenta_dos_bits_o.value != valor_contador:
-            await FallingEdge(dut.clk_i)
-
-        dut.pulso_teclas_pi.value = 1
-        dut.dato_codificador_i.value = valor_codificador
-        await FallingEdge(dut.data_available_o)
-        assert dut.dato_codificado_o.value == valor_codificado
-        dut.pulso_teclas_pi.value = 0'''
+            dut.pulso_teclas_pi.value = 0
