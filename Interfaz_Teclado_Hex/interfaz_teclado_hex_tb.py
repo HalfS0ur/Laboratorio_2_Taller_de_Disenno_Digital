@@ -1,12 +1,10 @@
 import cocotb
 from cocotb.triggers import Timer, FallingEdge, RisingEdge
+from cocotb.clock import Clock
 
-async def generar_reloj_10MHz(dut):
-    while True:
-        dut.clk_i.value = 1
-        await Timer (100, units = 'ns')
-        dut.clk_i.value = 0
-        await Timer (100, units = 'ns')
+async def iniciar_reloj(dut, periodo = 100, unidad = 'ns'):
+    clock = Clock(dut.clk_i, periodo, unidad)
+    await cocotb.start(clock.start())
 
 async def reiniciar_modulo(dut):
     dut.reset_i.value = 1
@@ -14,6 +12,7 @@ async def reiniciar_modulo(dut):
     dut.dato_codificador_i.value = 0
     await Timer (200, units = 'ns')
     dut.reset_i.value = 0
+    await RisingEdge(dut.clk_i)
 
 def mapeo_key_encoding(valor_teclado):
         mapeo = {
@@ -38,9 +37,8 @@ def mapeo_key_encoding(valor_teclado):
 
 @cocotb.test()
 async def prueba_tecla_0(dut):
-    await cocotb.start(generar_reloj_10MHz(dut))
+    await iniciar_reloj(dut)
     await reiniciar_modulo(dut)
-    await RisingEdge(dut.clk_i)
 
     valor_codificador = 3
     valor_contador = 3
@@ -60,9 +58,8 @@ async def prueba_tecla_0(dut):
 
 @cocotb.test()
 async def prueba_tecla_1(dut):
-    await cocotb.start(generar_reloj_10MHz(dut))
+    await iniciar_reloj(dut)
     await reiniciar_modulo(dut)
-    await RisingEdge(dut.clk_i)
 
     valor_codificador = 0
     valor_contador = 2
@@ -82,9 +79,8 @@ async def prueba_tecla_1(dut):
 
 @cocotb.test()
 async def prueba_tecla_2(dut):
-    await cocotb.start(generar_reloj_10MHz(dut))
+    await iniciar_reloj(dut)
     await reiniciar_modulo(dut)
-    await RisingEdge(dut.clk_i)
 
     valor_codificador = 3
     valor_contador = 2
@@ -104,9 +100,8 @@ async def prueba_tecla_2(dut):
 
 @cocotb.test()
 async def prueba_tecla_3(dut):
-    await cocotb.start(generar_reloj_10MHz(dut))
+    await iniciar_reloj(dut)
     await reiniciar_modulo(dut)
-    await RisingEdge(dut.clk_i)
 
     valor_codificador = 2
     valor_contador = 2
@@ -126,9 +121,8 @@ async def prueba_tecla_3(dut):
 
 @cocotb.test()
 async def prueba_tecla_4(dut):
-    await cocotb.start(generar_reloj_10MHz(dut))
+    await iniciar_reloj(dut)
     await reiniciar_modulo(dut)
-    await RisingEdge(dut.clk_i)
 
     valor_codificador = 0
     valor_contador = 1
@@ -148,9 +142,8 @@ async def prueba_tecla_4(dut):
 
 @cocotb.test()
 async def prueba_tecla_5(dut):
-    await cocotb.start(generar_reloj_10MHz(dut))
+    await iniciar_reloj(dut)
     await reiniciar_modulo(dut)
-    await RisingEdge(dut.clk_i)
 
     valor_codificador = 3
     valor_contador = 1
@@ -170,9 +163,8 @@ async def prueba_tecla_5(dut):
 
 @cocotb.test()
 async def prueba_tecla_6(dut):
-    await cocotb.start(generar_reloj_10MHz(dut))
+    await iniciar_reloj(dut)
     await reiniciar_modulo(dut)
-    await RisingEdge(dut.clk_i)
 
     valor_codificador = 2
     valor_contador = 1
@@ -192,9 +184,8 @@ async def prueba_tecla_6(dut):
 
 @cocotb.test()
 async def prueba_tecla_7(dut):
-    await cocotb.start(generar_reloj_10MHz(dut))
+    await iniciar_reloj(dut)
     await reiniciar_modulo(dut)
-    await RisingEdge(dut.clk_i)
 
     valor_codificador = 0
     valor_contador = 0
@@ -214,9 +205,8 @@ async def prueba_tecla_7(dut):
 
 @cocotb.test()
 async def prueba_tecla_8(dut):
-    await cocotb.start(generar_reloj_10MHz(dut))
+    await iniciar_reloj(dut)
     await reiniciar_modulo(dut)
-    await RisingEdge(dut.clk_i)
 
     valor_codificador = 3
     valor_contador = 0
@@ -236,9 +226,8 @@ async def prueba_tecla_8(dut):
 
 @cocotb.test()
 async def prueba_tecla_9(dut):
-    await cocotb.start(generar_reloj_10MHz(dut))
+    await iniciar_reloj(dut)
     await reiniciar_modulo(dut)
-    await RisingEdge(dut.clk_i)
 
     valor_codificador = 2
     valor_contador = 0
@@ -258,9 +247,8 @@ async def prueba_tecla_9(dut):
 
 @cocotb.test()
 async def prueba_tecla_A(dut):
-    await cocotb.start(generar_reloj_10MHz(dut))
+    await iniciar_reloj(dut)
     await reiniciar_modulo(dut)
-    await RisingEdge(dut.clk_i)
 
     valor_codificador = 1
     valor_contador = 0
@@ -280,9 +268,8 @@ async def prueba_tecla_A(dut):
 
 @cocotb.test()
 async def prueba_tecla_B(dut):
-    await cocotb.start(generar_reloj_10MHz(dut))
+    await iniciar_reloj(dut)
     await reiniciar_modulo(dut)
-    await RisingEdge(dut.clk_i)
 
     valor_codificador = 1
     valor_contador = 1
@@ -302,9 +289,8 @@ async def prueba_tecla_B(dut):
 
 @cocotb.test()
 async def prueba_tecla_C(dut):
-    await cocotb.start(generar_reloj_10MHz(dut))
+    await iniciar_reloj(dut)
     await reiniciar_modulo(dut)
-    await RisingEdge(dut.clk_i)
 
     valor_codificador = 1
     valor_contador = 2
@@ -324,9 +310,8 @@ async def prueba_tecla_C(dut):
 
 @cocotb.test()
 async def prueba_tecla_D(dut):
-    await cocotb.start(generar_reloj_10MHz(dut))
+    await iniciar_reloj(dut)
     await reiniciar_modulo(dut)
-    await RisingEdge(dut.clk_i)
 
     valor_codificador = 1
     valor_contador = 3
@@ -346,9 +331,8 @@ async def prueba_tecla_D(dut):
 
 @cocotb.test()
 async def prueba_tecla_E(dut):
-    await cocotb.start(generar_reloj_10MHz(dut))
+    await iniciar_reloj(dut)
     await reiniciar_modulo(dut)
-    await RisingEdge(dut.clk_i)
 
     valor_codificador = 2
     valor_contador = 3
@@ -368,9 +352,8 @@ async def prueba_tecla_E(dut):
 
 @cocotb.test()
 async def prueba_tecla_F(dut):
-    await cocotb.start(generar_reloj_10MHz(dut))
+    await iniciar_reloj(dut)
     await reiniciar_modulo(dut)
-    await RisingEdge(dut.clk_i)
 
     valor_codificador = 0
     valor_contador = 3
