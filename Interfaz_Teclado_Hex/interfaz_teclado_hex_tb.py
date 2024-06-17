@@ -40,21 +40,22 @@ async def prueba_tecla_0(dut):
     await iniciar_reloj(dut)
     await reiniciar_modulo(dut)
 
-    valor_codificador = 3
-    valor_contador = 3
+    for test in range(4):
+        valor_codificador = test
+        valor_contador = test
 
-    valor_concatenado = (valor_contador << 2) | valor_codificador
-    valor_binario = f'{valor_concatenado:04b}'
-    valor_codificado = mapeo_key_encoding(valor_binario)
+        valor_concatenado = (valor_contador << 2) | valor_codificador
+        valor_binario = f'{valor_concatenado:04b}'
+        valor_codificado = mapeo_key_encoding(valor_binario)
 
-    hmm = getattr(dut.clock_divider, 'clk_o')
-    while dut.cuenta_dos_bits_o.value != valor_contador:
-        await FallingEdge(hmm)
+        while dut.cuenta_dos_bits_o.value != valor_contador:
+            await FallingEdge(dut.clock_divider.clk_o)
 
-    dut.pulso_teclas_pi.value = 1
-    dut.dato_codificador_i.value = valor_codificador
-    await FallingEdge(dut.data_available_o)
-    assert dut.dato_codificado_o.value == valor_codificado
+        dut.pulso_teclas_pi.value = 1
+        dut.dato_codificador_i.value = valor_codificador
+        await FallingEdge(dut.data_available_o)
+        assert dut.dato_codificado_o.value == valor_codificado
+        dut.pulso_teclas_pi.value = 0
 
 @cocotb.test()
 async def prueba_tecla_1(dut):
@@ -68,9 +69,8 @@ async def prueba_tecla_1(dut):
     valor_binario = f'{valor_concatenado:04b}'
     valor_codificado = mapeo_key_encoding(valor_binario)
 
-    hmm = getattr(dut.clock_divider, 'clk_o')
     while dut.cuenta_dos_bits_o.value != valor_contador:
-        await FallingEdge(hmm)
+        await FallingEdge(dut.clock_divider.clk_o)
 
     dut.pulso_teclas_pi.value = 1
     dut.dato_codificador_i.value = valor_codificador
@@ -89,9 +89,8 @@ async def prueba_tecla_2(dut):
     valor_binario = f'{valor_concatenado:04b}'
     valor_codificado = mapeo_key_encoding(valor_binario)
 
-    hmm = getattr(dut.clock_divider, 'clk_o')
     while dut.cuenta_dos_bits_o.value != valor_contador:
-        await FallingEdge(hmm)
+        await FallingEdge(dut.clock_divider.clk_o)
 
     dut.pulso_teclas_pi.value = 1
     dut.dato_codificador_i.value = valor_codificador
@@ -110,9 +109,8 @@ async def prueba_tecla_3(dut):
     valor_binario = f'{valor_concatenado:04b}'
     valor_codificado = mapeo_key_encoding(valor_binario)
 
-    hmm = getattr(dut.clock_divider, 'clk_o')
     while dut.cuenta_dos_bits_o.value != valor_contador:
-        await FallingEdge(hmm)
+        await FallingEdge(dut.clock_divider.clk_o)
 
     dut.pulso_teclas_pi.value = 1
     dut.dato_codificador_i.value = valor_codificador
@@ -131,9 +129,8 @@ async def prueba_tecla_4(dut):
     valor_binario = f'{valor_concatenado:04b}'
     valor_codificado = mapeo_key_encoding(valor_binario)
 
-    hmm = getattr(dut.clock_divider, 'clk_o')
     while dut.cuenta_dos_bits_o.value != valor_contador:
-        await FallingEdge(hmm)
+        await FallingEdge(dut.clock_divider.clk_o)
 
     dut.pulso_teclas_pi.value = 1
     dut.dato_codificador_i.value = valor_codificador
@@ -152,9 +149,8 @@ async def prueba_tecla_5(dut):
     valor_binario = f'{valor_concatenado:04b}'
     valor_codificado = mapeo_key_encoding(valor_binario)
 
-    hmm = getattr(dut.clock_divider, 'clk_o')
     while dut.cuenta_dos_bits_o.value != valor_contador:
-        await FallingEdge(hmm)
+        await FallingEdge(dut.clock_divider.clk_o)
 
     dut.pulso_teclas_pi.value = 1
     dut.dato_codificador_i.value = valor_codificador
@@ -173,9 +169,8 @@ async def prueba_tecla_6(dut):
     valor_binario = f'{valor_concatenado:04b}'
     valor_codificado = mapeo_key_encoding(valor_binario)
 
-    hmm = getattr(dut.clock_divider, 'clk_o')
     while dut.cuenta_dos_bits_o.value != valor_contador:
-        await FallingEdge(hmm)
+        await FallingEdge(dut.clock_divider.clk_o)
 
     dut.pulso_teclas_pi.value = 1
     dut.dato_codificador_i.value = valor_codificador
@@ -194,9 +189,8 @@ async def prueba_tecla_7(dut):
     valor_binario = f'{valor_concatenado:04b}'
     valor_codificado = mapeo_key_encoding(valor_binario)
 
-    hmm = getattr(dut.clock_divider, 'clk_o')
     while dut.cuenta_dos_bits_o.value != valor_contador:
-        await FallingEdge(hmm)
+        await FallingEdge(dut.clock_divider.clk_o)
 
     dut.pulso_teclas_pi.value = 1
     dut.dato_codificador_i.value = valor_codificador
@@ -215,9 +209,8 @@ async def prueba_tecla_8(dut):
     valor_binario = f'{valor_concatenado:04b}'
     valor_codificado = mapeo_key_encoding(valor_binario)
 
-    hmm = getattr(dut.clock_divider, 'clk_o')
     while dut.cuenta_dos_bits_o.value != valor_contador:
-        await FallingEdge(hmm)
+        await FallingEdge(dut.clock_divider.clk_o)
 
     dut.pulso_teclas_pi.value = 1
     dut.dato_codificador_i.value = valor_codificador
@@ -236,9 +229,8 @@ async def prueba_tecla_9(dut):
     valor_binario = f'{valor_concatenado:04b}'
     valor_codificado = mapeo_key_encoding(valor_binario)
 
-    hmm = getattr(dut.clock_divider, 'clk_o')
     while dut.cuenta_dos_bits_o.value != valor_contador:
-        await FallingEdge(hmm)
+        await FallingEdge(dut.clock_divider.clk_o)
 
     dut.pulso_teclas_pi.value = 1
     dut.dato_codificador_i.value = valor_codificador
@@ -257,9 +249,8 @@ async def prueba_tecla_A(dut):
     valor_binario = f'{valor_concatenado:04b}'
     valor_codificado = mapeo_key_encoding(valor_binario)
 
-    hmm = getattr(dut.clock_divider, 'clk_o')
     while dut.cuenta_dos_bits_o.value != valor_contador:
-        await FallingEdge(hmm)
+        await FallingEdge(dut.clock_divider.clk_o)
 
     dut.pulso_teclas_pi.value = 1
     dut.dato_codificador_i.value = valor_codificador
@@ -278,9 +269,8 @@ async def prueba_tecla_B(dut):
     valor_binario = f'{valor_concatenado:04b}'
     valor_codificado = mapeo_key_encoding(valor_binario)
 
-    hmm = getattr(dut.clock_divider, 'clk_o')
     while dut.cuenta_dos_bits_o.value != valor_contador:
-        await FallingEdge(hmm)
+        await FallingEdge(dut.clock_divider.clk_o)
 
     dut.pulso_teclas_pi.value = 1
     dut.dato_codificador_i.value = valor_codificador
@@ -299,9 +289,8 @@ async def prueba_tecla_C(dut):
     valor_binario = f'{valor_concatenado:04b}'
     valor_codificado = mapeo_key_encoding(valor_binario)
 
-    hmm = getattr(dut.clock_divider, 'clk_o')
     while dut.cuenta_dos_bits_o.value != valor_contador:
-        await FallingEdge(hmm)
+        await FallingEdge(dut.clock_divider.clk_o)
 
     dut.pulso_teclas_pi.value = 1
     dut.dato_codificador_i.value = valor_codificador
@@ -320,9 +309,8 @@ async def prueba_tecla_D(dut):
     valor_binario = f'{valor_concatenado:04b}'
     valor_codificado = mapeo_key_encoding(valor_binario)
 
-    hmm = getattr(dut.clock_divider, 'clk_o')
     while dut.cuenta_dos_bits_o.value != valor_contador:
-        await FallingEdge(hmm)
+        await FallingEdge(dut.clock_divider.clk_o)
 
     dut.pulso_teclas_pi.value = 1
     dut.dato_codificador_i.value = valor_codificador
@@ -341,9 +329,8 @@ async def prueba_tecla_E(dut):
     valor_binario = f'{valor_concatenado:04b}'
     valor_codificado = mapeo_key_encoding(valor_binario)
 
-    hmm = getattr(dut.clock_divider, 'clk_o')
     while dut.cuenta_dos_bits_o.value != valor_contador:
-        await FallingEdge(hmm)
+        await FallingEdge(dut.clock_divider.clk_o)
 
     dut.pulso_teclas_pi.value = 1
     dut.dato_codificador_i.value = valor_codificador
@@ -362,17 +349,10 @@ async def prueba_tecla_F(dut):
     valor_binario = f'{valor_concatenado:04b}'
     valor_codificado = mapeo_key_encoding(valor_binario)
 
-    hmm = getattr(dut.clock_divider, 'clk_o')
     while dut.cuenta_dos_bits_o.value != valor_contador:
-        await FallingEdge(hmm)
+        await FallingEdge(dut.clock_divider.clk_o)
 
     dut.pulso_teclas_pi.value = 1
     dut.dato_codificador_i.value = valor_codificador
     await FallingEdge(dut.data_available_o)
     assert dut.dato_codificado_o.value == valor_codificado
-
-
-
-
-
-

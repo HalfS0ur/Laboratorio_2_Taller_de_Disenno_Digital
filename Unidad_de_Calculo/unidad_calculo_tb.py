@@ -64,10 +64,11 @@ async def let_it_run_baby(dut):
 
 @cocotb.test()
 async def prueba_funcion_and(dut):
-    #estado = int(dut.control.estado_o)
     await cocotb.start(generar_reloj_10MHz(dut))
     await (reiniciar_modulo(dut))
     await RisingEdge(dut.clk_i)
+    estado = int(dut.control.estado_o)
+    print(estado)
 
     for operando_a in range(10):
         for operando_b in range(10):
