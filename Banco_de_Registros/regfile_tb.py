@@ -1,7 +1,14 @@
 import cocotb
 from cocotb.triggers import Timer, FallingEdge, RisingEdge
-
+from cocotb.clock import Clock
 import random
+
+NUMERO_REGISTROS = 2**5
+TAMANNO_REGISTROS = 2**32
+
+async def iniciar_reloj(dut, periodo = 100, unidad = 'ns'):
+    clock = Clock(dut.clk_i, periodo, unidad)
+    await cocotb.start(clock.start())
 
 async def generar_reloj_10MHz(dut):
     while True:
@@ -22,14 +29,73 @@ async def reiniciar_modulo(dut):
 
 
 @cocotb.test()
-async def prueba_escritura_secuencial(dut):
-    await (reiniciar_modulo(dut))
-
-    NUMERO_REGISTROS = 2**5
+async def prueba_reset(dut):
+    await iniciar_reloj(dut)
     
-    for escritura in range (NUMERO_REGISTROS):
-        await cocotb.start(generar_reloj_10MHz(dut))
+    dut.reset_i.value = 1
+    dut.we_i.value = 0
+    await FallingEdge(dut.clk_i)
+    dut.reset_i.value = 0
 
+    for registro in range(NUMERO_REGISTROS):
+        dut.addr_rs1.value = registro
+        dut.addr_rs2.value = registro
+
+        await FallingEdge(dut.clk_i)
+
+        assert dut.rs1.value == 0, f"El valor de rs1 esperado después de un reinicio es 0, se recibió {dut.rs1.value}"
+        assert dut.rs2.value == 0, f"El valor de rs2 esperado después de un reinicio es 0, se recibió {dut.rs2.value}"
+
+
+@cocotb.test()
+async def prueba_we(dut):
+    await iniciar_reloj(dut)
+    await reiniciar_modulo(dut)
+
+    dut.we_i.value = 0
+
+    for escritura in range(NUMERO_REGISTROS):
+        dut.addr_rd.value = escritura
+        dut.data_in.value = escritura
+
+    for lectura in range(NUMERO_REGISTROS):
+        dut.addr_rs1.value = lectura
+        dut.addr_rs2.value = lectura
+
+        await FallingEdge(dut.clk_i)
+
+        assert dut.rs1.value == 0, f"El valor de rs1 esperado es 0, se recibió {dut.rs1.value}"
+        assert dut.rs2.value == 0, f"El valor de rs2 esperado es 0, se recibió {dut.rs2.value}"
+
+
+@cocotb.test()
+async def prueba_escritura(dut):
+    await iniciar_reloj(dut)
+    await reiniciar_modulo(dut)
+
+    for registro in range(1, NUMERO_REGISTROS):
+        for dato in range(2**1):
+            dut.we_i.value = 1
+            dut.addr_rd.value = registro
+            dut.data_in.value = dato
+
+            await FallingEdge(dut.clk_i)
+
+            dut.addr_rs1.value = registro
+            dut.addr_rs2.value = registro
+
+            await FallingEdge(dut.clk_i)
+
+            assert dut.rs1.value == dato, f"El valor de rs1 esperado es {dato}, se recibió {dut.rs1.value}"
+            assert dut.rs2.value == dato, f"El valor de rs2 esperado es {dato}, se recibió {dut.rs2.value}"
+
+
+@cocotb.test()
+async def prueba_escritura_secuencial(dut):
+    await iniciar_reloj(dut)
+    await reiniciar_modulo(dut)
+    
+    for escritura in range (NUMERO_REGISTROS): 
         dut.we_i.value = 1
         dut.data_in.value = escritura
         dut.addr_rd.value = escritura
@@ -49,12 +115,9 @@ async def prueba_escritura_secuencial(dut):
 
 @cocotb.test()
 async def prueba_escritura_aleatoria(dut):
-    await cocotb.start(generar_reloj_10MHz(dut))
-    await (reiniciar_modulo(dut))
-    await FallingEdge(dut.clk_i)
-
-    NUMERO_REGISTROS = 2**5
-    ANCHO_REGISTROS = 2**32
+    await iniciar_reloj(dut)
+    await reiniciar_modulo(dut)
+    #await FallingEdge(dut.clk_i)
 
     lista_valores = []
     lista_direcciones = []
@@ -63,7 +126,7 @@ async def prueba_escritura_aleatoria(dut):
         dut.we_i.value = 1
 
         direccion = random.randint(0, (NUMERO_REGISTROS-1))
-        dato = random.randint(0, (ANCHO_REGISTROS-1))
+        dato = random.randint(0, (TAMANNO_REGISTROS-1))
 
         if direccion not in lista_direcciones:
             lista_direcciones.append(direccion)
@@ -96,12 +159,9 @@ async def prueba_escritura_aleatoria(dut):
 
 @cocotb.test()
 async def prueba_escritura_intermitente(dut):
-    await cocotb.start(generar_reloj_10MHz(dut))
-    await (reiniciar_modulo(dut))
-    await FallingEdge(dut.clk_i)
-
-    NUMERO_REGISTROS = 2**5
-    ANCHO_REGISTROS = 2**32
+    await iniciar_reloj(dut)
+    await reiniciar_modulo(dut)
+    #await FallingEdge(dut.clk_i)
 
     estado_we = []
     lista_datos = []
@@ -110,7 +170,7 @@ async def prueba_escritura_intermitente(dut):
     while True:
         we = random.randint(0,1)
         direccion = random.randint(0, (NUMERO_REGISTROS-1))
-        dato = random.randint(0, (ANCHO_REGISTROS-1))
+        dato = random.randint(0, (TAMANNO_REGISTROS-1))
 
         if direccion not in lista_direcciones:
             lista_direcciones.append(direccion)
@@ -150,20 +210,3 @@ async def prueba_escritura_intermitente(dut):
             assert dut.rs2.value == lista_datos[cuenta_rs2], f"El valor de rs2 esperado es {lista_datos[verificacion]}, se recibió {dut.rs2.value}"
 
         cuenta_rs2 = cuenta_rs2 - 1
-
-@cocotb.test()
-async def prueba_reset(dut):
-    await cocotb.start(generar_reloj_10MHz(dut))
-    await (reiniciar_modulo(dut))
-    await FallingEdge(dut.clk_i)
-
-    NUMERO_REGISTROS = 2**5
-
-    for prueba in range (NUMERO_REGISTROS):
-        dut.addr_rs1.value = prueba
-        dut.addr_rs2.value = prueba
-
-        await FallingEdge(dut.clk_i)
-
-        assert dut.rs1.value == 0, f"El valor de rs1 esperado después de un reinicio es 0, se recibió {dut.rs1.value}"
-        assert dut.rs2.value == 0, f"El valor de rs2 esperado después de un reinicio es 0, se recibió {dut.rs2.value}"
