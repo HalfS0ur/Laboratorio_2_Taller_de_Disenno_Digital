@@ -53,6 +53,6 @@ async def prueba_16_teclas(dut):
             dut.dato_codificador_i.value = codificador
 
             await FallingEdge(dut.data_available_o)
-            assert dut.dato_codificado_o.value == valor_codificado
+            assert dut.dato_codificado_o.value == valor_codificado, f"La tecla presionada es {valor_codificado}, se recibió {dut.dato_codificado_o.value}"
             
             dut.pulso_teclas_pi.value = 0
