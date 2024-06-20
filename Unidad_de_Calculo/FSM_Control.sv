@@ -19,9 +19,9 @@ module FSM_control(
     output logic           we_7seg_o
     );
     
-    logic [4:0] rs1 = 1;
+    //logic [4:0] rs1 = 1;
     logic [4:0] reg_rs1 = 1;
-    logic [4:0] rs2 = 2;
+    //logic [4:0] rs2 = 2;
     logic [4:0] reg_rs2 = 2;
     logic [4:0] rd = 1;
     logic [4:0] leer_rf = 1;
@@ -628,7 +628,13 @@ module FSM_control(
                 addr_rd_o <= rd;
                 alucont_o <= aluop;
                 //leer_rf <= 1;
-                state <= INICIO;
+                if (sw_i == 0) begin
+                    state <= INICIO;
+                end
+                
+                else begin
+                    state <= LEER_REGFILE;
+                end
             end
             endcase
         end
