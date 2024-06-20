@@ -24,6 +24,7 @@ module FSM_control(
     logic [4:0] rs2 = 2;
     logic [4:0] reg_rs2 = 2;
     logic [4:0] rd = 1;
+    logic [4:0] leer_rf = 1;
     logic [3:0] aluop = 0;
     logic [3:0] reg_op = 0;
     logic [5:0] state;
@@ -58,7 +59,8 @@ module FSM_control(
         MOST_RES = 5'b11010,
         PREP_SIG_OP = 5'b11011,
         ESP_MODO = 5'b11100,
-        MOST_REGFILE = 5'b11101;
+        MOST_REGFILE = 5'b11101,
+        PREP_SIG_RD = 5'b11110;
         
     always_ff @(posedge clk_i, posedge reset_i) begin
         if (reset_i) begin
@@ -76,6 +78,7 @@ module FSM_control(
             reg_op <= 0;
             addr_rd_o <= 1;
             alucont_o <= 0;
+            leer_rf <= 1;
         end
         
         else begin
@@ -92,6 +95,7 @@ module FSM_control(
                 reg_op <= 0;
                 addr_rd_o <= rd;
                 alucont_o <= aluop;
+                leer_rf <= leer_rf;
                 state <= SEL_MODO;
             end
             
@@ -106,6 +110,7 @@ module FSM_control(
                 we_7seg_o <= 0;
                 reg_op <= 0;
                 addr_rd_o <= rd;
+                leer_rf <= leer_rf;
                 alucont_o <= aluop;
                 
                 if (sw_i == 0) begin
@@ -128,6 +133,7 @@ module FSM_control(
                 we_7seg_o <= 0;
                 reg_op <= 0;
                 addr_rd_o <= rd;
+                leer_rf <= 1;
                 alucont_o <= aluop;
                 
                 if (key_detect_i) begin
@@ -150,6 +156,7 @@ module FSM_control(
                 we_7seg_o <= 0;
                 reg_op <= 0;
                 addr_rd_o <= rd;
+                leer_rf <= 1;
                 alucont_o <= aluop;
                 
                 if (teclado_i < 4'b1010) begin
@@ -173,6 +180,7 @@ module FSM_control(
                 reg_op <= 0;
                 addr_rd_o <= rd;
                 alucont_o <= aluop;
+                leer_rf <= 1;
                 state <= ESP_DATO_1;
             end
             
@@ -188,6 +196,7 @@ module FSM_control(
                 reg_op <= 0;
                 addr_rd_o <= rd;
                 alucont_o <= aluop;
+                leer_rf <= 1;
                 state <= LEER_DATO_1;
             end
             
@@ -203,6 +212,7 @@ module FSM_control(
                 reg_op <= 0;
                 addr_rd_o <= rd;
                 alucont_o <= aluop;
+                leer_rf <= 1;
                 state <= MOST_DATO_1;
             end
             
@@ -218,6 +228,7 @@ module FSM_control(
                 reg_op <= 0;
                 addr_rd_o <= rd;
                 alucont_o <= aluop;
+                leer_rf <= 1;
                 state <= ESP_OP;
             end
             
@@ -232,6 +243,7 @@ module FSM_control(
                 we_7seg_o <= 0;
                 reg_op <= 0;
                 alucont_o <= aluop;
+                leer_rf <= 1;
                 addr_rd_o <= rd;
                 
                 if (key_detect_i) begin
@@ -254,6 +266,7 @@ module FSM_control(
                 we_7seg_o <= 0;
                 //reg_op = 0;
                 addr_rd_o <= rd;
+                leer_rf <= 1;
                 alucont_o <= aluop;
                 
                 if (teclado_i > 4'b1001 && teclado_i < 4'b1111) begin
@@ -278,6 +291,7 @@ module FSM_control(
                 we_7seg_o <= 0;
                 reg_op <= 0;
                 addr_rd_o <= rd;
+                leer_rf <= 1;
                 alucont_o <= aluop;
                 state <= ESP_OP;
             end
@@ -293,6 +307,7 @@ module FSM_control(
                 we_7seg_o <= 0;
                 //reg_op = 0;
                 addr_rd_o <= rd;
+                leer_rf <= 1;
                 alucont_o <= aluop;
                 state <= ESP_DATO_2;
             end
@@ -307,6 +322,7 @@ module FSM_control(
                 led_o <= {5'b01100, 1'b0, reg_op, 6'b0};
                 we_7seg_o <= 0;
                 //reg_op = 0;
+                leer_rf <= 1;
                 alucont_o <= aluop;
                 addr_rd_o <= rd;
                 
@@ -329,6 +345,7 @@ module FSM_control(
                 led_o <= {5'b01101, 1'b0, reg_op, 6'b0};
                 we_7seg_o <= 0;
                 //reg_op = 0;
+                leer_rf <= 1;
                 alucont_o <= aluop;
                 addr_rd_o <= rd;
                 
@@ -351,6 +368,7 @@ module FSM_control(
                 led_o <= {5'b01110, 1'b0, reg_op, 6'b1};
                 we_7seg_o <= 0;
                 //reg_op = 0;
+                leer_rf <= 1;
                 addr_rd_o <= rd;
                 alucont_o <= aluop;
                 state <= ESP_DATO_2;
@@ -366,6 +384,7 @@ module FSM_control(
                 led_o <= {5'b01111, 1'b0, reg_op, 6'b0};
                 we_7seg_o <= 0;
                 //reg_op = 0;
+                leer_rf <= 1;
                 addr_rd_o <= rd;
                 alucont_o <= aluop;
                 state <= LEER_DATO_2;
@@ -381,6 +400,7 @@ module FSM_control(
                 led_o <= {5'b10000, 1'b0, reg_op, 6'b0};
                 we_7seg_o <= 0;
                 //reg_op = 0;
+                leer_rf <= 1;
                 addr_rd_o <= rd;
                 alucont_o <= aluop;
                 state <= MOST_DATO_2;
@@ -396,6 +416,7 @@ module FSM_control(
                 led_o <= {5'b10001, 1'b0, reg_op, 6'b0};
                 we_7seg_o <= 1;
                 //reg_op = 0;
+                leer_rf <= 1;
                 addr_rd_o <= rd;
                 alucont_o <= aluop;
                 state <= ESP_ENT;
@@ -411,6 +432,7 @@ module FSM_control(
                 led_o <= {5'b10010, 1'b0, reg_op, 6'b0};
                 we_7seg_o <= 0;
                 //reg_op = 0;
+                leer_rf <= 1;
                 alucont_o <= aluop;
                 addr_rd_o <= rd;
                 
@@ -433,6 +455,7 @@ module FSM_control(
                 led_o <= {5'b10011, 1'b0, reg_op, 6'b0};
                 we_7seg_o <= 0;
                 //reg_op = 0;
+                leer_rf <= 1;
                 addr_rd_o <= rd;
                 alucont_o <= aluop;
                 
@@ -455,6 +478,7 @@ module FSM_control(
                 led_o <= {5'b10100, 1'b0, reg_op, 5'b0, 1'b1};
                 we_7seg_o <= 0;
                 //reg_op = 0;
+                leer_rf <= 1;
                 addr_rd_o <= rd;
                 alucont_o <= aluop;
                 state <= ESP_ENT;
@@ -470,6 +494,7 @@ module FSM_control(
                 led_o <= {5'b10101, 1'b0, reg_op, 6'b0};
                 we_7seg_o <= 0;
                 //reg_op = 0;
+                leer_rf <= 1;
                 addr_rd_o <= rd;
                 alucont_o <= aluop;
                 state <= OPERA_DATOS;
@@ -485,6 +510,7 @@ module FSM_control(
                 led_o <= {5'b10110, 1'b0, reg_op, 6'b0};
                 we_7seg_o <= 0;
                 //reg_op = 0;
+                leer_rf <= 1;
                 addr_rd_o <= rd;
                 alucont_o <= aluop;
                 state <= GRD_RES;
@@ -500,6 +526,7 @@ module FSM_control(
                 led_o <= {5'b10111, 1'b0, reg_op, 6'b0};
                 we_7seg_o <= 0;
                 //reg_op = 0;
+                leer_rf <= 1;
                 addr_rd_o <= rd;
                 alucont_o <= aluop;
                 state <= LEER_RES;
@@ -515,6 +542,7 @@ module FSM_control(
                 led_o <= {5'b11000, 1'b0, reg_op, 6'b0};
                 we_7seg_o <= 0;
                 //reg_op = 0;
+                leer_rf <= 1;
                 addr_rd_o <= rd;
                 alucont_o <= aluop;
                 state <= MOST_RES;
@@ -530,6 +558,7 @@ module FSM_control(
                 led_o <= {5'b11001, 1'b0, reg_op, 6'b0};
                 we_7seg_o <= 1;
                 //reg_op = 0;
+                leer_rf <= 1;
                 addr_rd_o <= rd;
                 alucont_o <= aluop;
                 state <= PREP_SIG_OP;
@@ -559,7 +588,47 @@ module FSM_control(
                 reg_op <= 0;
                 addr_rd_o <= rd;
                 alucont_o <= aluop;
+                leer_rf <= 1;
                 state <= INICIO;     
+            end
+            
+            LEER_REGFILE: begin
+                mux_o <= 1;
+                addr_rs1_o <= reg_rs1;
+                addr_rs2_o <= leer_rf;
+                aluop <= aluop;
+                rd <= rd;
+                we_regfile_o <= 0;
+                led_o <= {5'b00011, 1'b0, reg_op, 6'b0};
+                we_7seg_o <= 1;
+                //leer_rf <= 1;
+                addr_rd_o <= rd;
+                alucont_o <= aluop;
+                state <= PREP_SIG_RD;
+            end
+            
+            PREP_SIG_RD: begin
+                if (leer_rf == 30) begin
+                    leer_rf <= 1;
+                end
+                
+                else begin
+                    leer_rf <= leer_rf + 1;
+                end
+                
+                mux_o <= 0;
+                addr_rs1_o <= reg_rs1;
+                addr_rs2_o <= leer_rf;
+                aluop <= 0;
+                //rd <= rd;
+                we_regfile_o <= 0;
+                led_o <= 16'hFFFF;
+                we_7seg_o <= 0;
+                reg_op <= 0;
+                addr_rd_o <= rd;
+                alucont_o <= aluop;
+                //leer_rf <= 1;
+                state <= INICIO;
             end
             endcase
         end
