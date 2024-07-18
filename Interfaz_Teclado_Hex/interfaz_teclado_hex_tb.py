@@ -41,18 +41,19 @@ async def prueba_16_teclas(dut):
     await iniciar_reloj(dut)
     await reiniciar_modulo(dut)
 
-    for codificador in range(4):
-        for contador in range (4):
-            valor_tecla = f'{((contador << 2)|codificador):04b}'
-            valor_codificado = mapeo_key_encoding(valor_tecla)
+    for test in range(8):
+        for codificador in range(4):
+            for contador in range(4):
+                valor_tecla = f'{((contador << 2)|codificador):04b}'
+                valor_codificado = mapeo_key_encoding(valor_tecla)
 
-            while dut.cuenta_dos_bits_o.value != contador:
-                await FallingEdge(dut.clk_i)
+                while dut.cuenta_dos_bits_o.value != contador:
+                    await FallingEdge(dut.clk_i)
 
-            dut.pulso_teclas_pi.value = 1
-            dut.dato_codificador_i.value = codificador
+                dut.pulso_teclas_pi.value = 1
+                dut.dato_codificador_i.value = codificador
 
-            await FallingEdge(dut.data_available_o)
-            assert dut.dato_codificado_o.value == valor_codificado, f"La tecla presionada es {valor_codificado}, se recibió {dut.dato_codificado_o.value}"
-            
-            dut.pulso_teclas_pi.value = 0
+                await FallingEdge(dut.data_available_o)
+                assert dut.dato_codificado_o.value == valor_codificado, f"La tecla presionada es {valor_codificado}, se recibió {dut.dato_codificado_o.value}"
+                
+                dut.pulso_teclas_pi.value = 0
