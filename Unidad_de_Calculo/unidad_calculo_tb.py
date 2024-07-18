@@ -1,6 +1,7 @@
 import cocotb
-from cocotb.triggers import Timer, FallingEdge, RisingEdge, ReadOnly, NextTimeStep
+from cocotb.triggers import Timer, RisingEdge
 from cocotb.clock import Clock
+import random
 
 ciclo_reloj = 100 
 
@@ -127,6 +128,39 @@ async def prueba_funcion_corrimiento(dut):
             await pulsar_tecla(dut, 1, 5, 15)
             assert dut.banco_de_registros.rs2.value == resultado, f"Operación corrimiento falló para {operando_a} << {operando_b}, se obtuvo {int(dut.banco_de_registros.rs2.value)}, esperaba {resultado}"
             await Timer(2 * ciclo_reloj, units='ns')
+
+        
+@cocotb.test()
+async def prueba_lectura_regfile(dut):
+    await iniciar_reloj(dut)
+    await (reiniciar_modulo(dut))
+    await RisingEdge(dut.clk_i)
+
+    dut.sw_i.value = 0
+
+    regfile = []
+
+    for operacion in range (10):
+        operando_a = random.randint(1, 9)
+        operando_b = random.randint(1, 9)
+
+        await Timer(ciclo_reloj, units='ns')
+        await pulsar_tecla(dut, 2, 4, operando_a)
+        await pulsar_tecla(dut, 1, 2, 12)
+        await pulsar_tecla(dut, 1, 4, operando_b)
+        resultado = (operando_a & operando_b) & 0xFFFF
+        regfile.extend([operando_a, operando_b, resultado])
+        await pulsar_tecla(dut, 1, 5, 15)
+        await Timer(2 * ciclo_reloj, units='ns')
+
+    await Timer(ciclo_reloj, units='ns')
+
+    dut.sw_i.value = 1
+
+    for registro in range(30):
+        await Timer(2*ciclo_reloj, units='ns')
+        assert dut.banco_de_registros.rs2.value == regfile[registro], f"Operación lectura falló en el registro {registro}, se obtuvo {int(dut.banco_de_registros.rs2.value)}, esperaba {regfile[registro]}"
+
 
 
 #estados de interes: 1,4,9,10,13,14,19,20,26
