@@ -1,12 +1,12 @@
 `timescale 1ns / 1ps
 
 module top(
-    input logic clk_i,
-    input logic reset_i,
-    input logic [3:0] pulso_teclas_pi,
-    input logic [1:0] dato_codificador_i,
+    input logic        clk_i,
+    input logic        reset_i,
+    input logic  [3:0] pulso_teclas_pi,
+    input logic  [1:0] dato_codificador_i,
     
-    output logic data_available_o,
+    output logic       data_available_o,
     output logic [1:0] cuenta_dos_bits_o,
     output logic [3:0] dato_codificado_o
     );
