@@ -5,13 +5,13 @@ jobs:
   Deteccion_de_cambios:
     runs-on: ubuntu-latest
     outputs:
-      antirebotes_sinc: ${{ steps.filter.outputs.antirebotes_sinc }}
-      regfile: ${{ steps.filter.outputs.regfile }}
-      deco_hex_7s: ${{ steps.filter.outputs.deco_hex_7s }}
-      teclado_hex : ${{ steps.filter.outputs.teclado_hex }}
-      pll : ${{ steps.filter.outputs.pll }} 
-      pc : ${{ steps.filter.outputs.pc }} 
-      unidad_calculo : ${{ steps.filter.outputs.unidad_calculo }} 
+      ejercicio1: ${{ steps.filter.outputs.ejercicio1 }}
+      ejercicio2: ${{ steps.filter.outputs.ejercicio2 }}
+      ejercicio3: ${{ steps.filter.outputs.ejercicio3 }}
+      ejercicio4: ${{ steps.filter.outputs.ejercicio4 }}
+      ejercicio5: ${{ steps.filter.outputs.ejercicio5 }} 
+      ejercicio6: ${{ steps.filter.outputs.ejercicio6 }} 
+
     steps:
     - name: checking out repository code
       uses: actions/checkout@v4
@@ -20,28 +20,26 @@ jobs:
       id: filter
       with:
         filters: |
-          antirebotes_sinc:
-            - 'Antirebotes_Sincronizador/**/*.sv'
-          regfile:
-            - 'Banco_de_Registros/**/*.sv'
-          deco_hex_7s:
-            - 'Decodificador_Hex_7_Segmentos/**/*.sv'
-          teclado_hex:
-            - 'Interfaz_Teclado_Hex/**/*.sv'
-          pll:
-            - 'PLL_IP_core/**/*.sv'
-          pc:
-            - 'Program_Counter/**/*.sv'
-          unidad_calculo:
-            - 'Unidad_de_Calculo/**/*.sv'
+          ejercicio1:
+            - 'ejercicio1/**/*.sv'
+          ejercicio2:
+            - 'ejercicio2/**/*.sv'
+          ejercicio3:
+            - 'ejercicio3/**/*.sv'
+          ejercicio4:
+            - 'ejercicio4/**/*.sv'
+          ejercicio5:
+            - 'ejercicio5/**/*.sv'
+          ejercicio6:
+            - 'ejercicio6/**/*.sv'
 
-  antirebotes_sinc:
+  ejercicio1:
     needs: Deteccion_de_cambios
-    if: ${{ needs.Deteccion_de_cambios.outputs.antirebotes_sinc == 'true' }}
+    if: ${{ needs.Deteccion_de_cambios.outputs.ejercicio1 == 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./Antirebotes_Sincronizador
+        working-directory: ./ejercicio1/testing
     steps:
       - name: Descargando código del repositorio
         uses: actions/checkout@v4
@@ -61,7 +59,7 @@ jobs:
             import xml.etree.ElementTree as ET
             import sys
             try:
-              tree = ET.parse("Antirebotes_Sincronizador/results.xml")
+              tree = ET.parse("ejercicio1/testing/results.xml")
               root = tree.getroot()
               if "Test failed" in ET.tostring(root).decode():
                 print(f"Se encontraron errores durante la ejecución del testbench.")
