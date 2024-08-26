@@ -14,7 +14,7 @@ module display_7_segmentos(
     
     always @(posedge clk_i or posedge reset_i) begin
         if (reset_i) begin
-            display_2 <= 0;
+            display_2 <= 0; //.
         end
 
         else begin

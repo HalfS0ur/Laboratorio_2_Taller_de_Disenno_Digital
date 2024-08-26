@@ -15,7 +15,7 @@ module program_counter #(parameter ANCHO = 16)(
         case(pc_op_i)
             'b00: begin
                 pc_actual <= 0;
-                pc_siguiente <= 0;
+                pc_siguiente <= 0; //.
             end
             
             'b01: begin

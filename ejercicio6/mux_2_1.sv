@@ -12,7 +12,7 @@ module mux_2_1 #(
     always_comb begin 
         case (seleccion_i)
             0: salida_o = entrada0_i;
-            1: salida_o = entrada1_i;
+            1: salida_o = entrada1_i; //.
         endcase
     end
 endmodule

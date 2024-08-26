@@ -71,13 +71,13 @@ jobs:
               print("Ocurrió un error:", e)
               sys.exit(1)
 
-  regfile:
+  ejercicio2:
     needs: Deteccion_de_cambios
-    if: ${{ needs.Deteccion_de_cambios.outputs.antirebotes_sinc == 'regfile' }}
+    if: ${{ needs.Deteccion_de_cambios.outputs.ejercicio2 == 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./Banco_de_Registros
+        working-directory: ./ejercicio2/testing
     steps:
       - name: Descargando código del repositorio
         uses: actions/checkout@v4
@@ -97,7 +97,7 @@ jobs:
             import xml.etree.ElementTree as ET
             import sys
             try:
-              tree = ET.parse("Banco_de_Registros/results.xml")
+              tree = ET.parse("ejercicio2/testing/results.xml")
               root = tree.getroot()
               if "Test failed" in ET.tostring(root).decode():
                 print(f"Se encontraron errores durante la ejecución del testbench.")
@@ -109,13 +109,13 @@ jobs:
               print("Ocurrió un error:", e)
               sys.exit(1)
 
-  deco_7s:
+  ejercicio3:
     needs: Deteccion_de_cambios
-    if: ${{ needs.Deteccion_de_cambios.outputs.deco_hex_7s == 'true' }}
+    if: ${{ needs.Deteccion_de_cambios.outputs.ejercicio3 == 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./Decodificador_Hex_7_Segmentos
+        working-directory: ./ejercicio3/testing
     steps:
       - name: Descargando código del repositorio
         uses: actions/checkout@v4
@@ -135,7 +135,7 @@ jobs:
             import xml.etree.ElementTree as ET
             import sys
             try:
-              tree = ET.parse("Decodificador_Hex_7_Segmentos/results.xml")
+              tree = ET.parse("ejercicio3/testing/results.xml")
               root = tree.getroot()
               if "Test failed" in ET.tostring(root).decode():
                 print(f"Se encontraron errores durante la ejecución del testbench.")
@@ -147,13 +147,13 @@ jobs:
               print("Ocurrió un error:", e)
               sys.exit(1)
 
-  teclado_hex:
+  ejercicio4:
     needs: Deteccion_de_cambios
-    if: ${{ needs.Deteccion_de_cambios.outputs.teclado_hex == 'true' }}
+    if: ${{ needs.Deteccion_de_cambios.outputs.ejercicio4 == 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./Interfaz_Teclado_Hex
+        working-directory: ./ejercicio4/testing
     steps:
       - name: Descargando código del repositorio
         uses: actions/checkout@v4
@@ -173,7 +173,7 @@ jobs:
             import xml.etree.ElementTree as ET
             import sys
             try:
-              tree = ET.parse("Interfaz_Teclado_Hex/results.xml")
+              tree = ET.parse("ejercicio4/testing/results.xml")
               root = tree.getroot()
               if "Test failed" in ET.tostring(root).decode():
                 print(f"Se encontraron errores durante la ejecución del testbench.")
@@ -185,13 +185,13 @@ jobs:
               print("Ocurrió un error:", e)
               sys.exit(1)
 
-  pll:
+  ejercicio5:
     needs: Deteccion_de_cambios
-    if: ${{ needs.Deteccion_de_cambios.outputs.pll == 'true' }}
+    if: ${{ needs.Deteccion_de_cambios.outputs.ejercicio5 == 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./PLL_IP_core
+        working-directory: ./ejercicio5/testing
     steps:
       - name: Descargando código del repositorio
         uses: actions/checkout@v4
@@ -211,7 +211,7 @@ jobs:
             import xml.etree.ElementTree as ET
             import sys
             try:
-              tree = ET.parse("PLL_IP_core/results.xml")
+              tree = ET.parse("ejercicio5/testing/results.xml")
               root = tree.getroot()
               if "Test failed" in ET.tostring(root).decode():
                 print(f"Se encontraron errores durante la ejecución del testbench.")
@@ -223,13 +223,13 @@ jobs:
               print("Ocurrió un error:", e)
               sys.exit(1)
 
-  pc:
+  ejercicio6:
     needs: Deteccion_de_cambios
-    if: ${{ needs.Deteccion_de_cambios.outputs.pc == 'true' }}
+    if: ${{ needs.Deteccion_de_cambios.outputs.ejercicio6 == 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./Program_Counter
+        working-directory: ./ejercicio6/testing
     steps:
       - name: Descargando código del repositorio
         uses: actions/checkout@v4
@@ -249,45 +249,7 @@ jobs:
             import xml.etree.ElementTree as ET
             import sys
             try:
-              tree = ET.parse("Program_Counter/results.xml")
-              root = tree.getroot()
-              if "Test failed" in ET.tostring(root).decode():
-                print(f"Se encontraron errores durante la ejecución del testbench.")
-                sys.exit(1)
-              else:
-                print(f"Ejecución del testbench exitosa.")
-                sys.exit(0)
-            except Exception as e:
-              print("Ocurrió un error:", e)
-              sys.exit(1)
-
-  unidad_calculo:
-    needs: Deteccion_de_cambios
-    if: ${{ needs.Deteccion_de_cambios.outputs.unidad_calculo == 'true' }}
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./Unidad_de_Calculo
-    steps:
-      - name: Descargando código del repositorio
-        uses: actions/checkout@v4
-      - name: Instalando iverilog
-        run: sudo apt-get install iverilog
-      - name: Configurando Python 3.10
-        uses: actions/setup-python@v5
-        with: 
-          python-version: '3.10'
-      - name: Instalando dependencias
-        run: pip install cocotb
-      - run: make
-      - name: Buscando errores
-        uses: jannekem/run-python-script-action@v1.7
-        with:
-          script: |
-            import xml.etree.ElementTree as ET
-            import sys
-            try:
-              tree = ET.parse("Unidad_de_Calculo/results.xml")
+              tree = ET.parse("ejercicio6/testing/results.xml")
               root = tree.getroot()
               if "Test failed" in ET.tostring(root).decode():
                 print(f"Se encontraron errores durante la ejecución del testbench.")
