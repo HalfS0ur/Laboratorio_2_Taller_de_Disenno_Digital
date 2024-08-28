@@ -24,3 +24,4 @@ async def prueba_reloj(dut):
         await FallingEdge(dut.clk_pi)
 
         assert dut.led_po.value == valor_LED, f"El valor de LED_po esperado es {valor_LED}, se recibió {dut.led_po.value}"
+        
