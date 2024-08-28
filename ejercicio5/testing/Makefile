@@ -3,7 +3,7 @@ export PYTHONPATH := $(PWD):$(PYTHONPATH)
 
 TOPLEVEL_LANG = verilog
 VERILOG_SOURCES += $(PWD)/../*.sv
-TOPLEVEL = regfile
+TOPLEVEL = top
 MODULE = regfile_tb
 WAVES = 1
 

@@ -2,15 +2,15 @@
 
 module regfile
     #(parameter ANCHO = 32, 
-                LARGO = 5
+                PROFUNDIDAD = 5
     )(
     input  logic             clk_i,
     input  logic             reset_i,
     input  logic             we_i,
     input  logic [ANCHO-1:0] data_in,
-    input  logic [LARGO-1:0] addr_rd,
-    input  logic [LARGO-1:0] addr_rs1,
-    input  logic [LARGO-1:0] addr_rs2,
+    input  logic [PROFUNDIDAD-1:0] addr_rd,
+    input  logic [PROFUNDIDAD-1:0] addr_rs1,
+    input  logic [PROFUNDIDAD-1:0] addr_rs2,
     
     output logic [ANCHO-1:0] rs1,
     output logic [ANCHO-1:0] rs2
