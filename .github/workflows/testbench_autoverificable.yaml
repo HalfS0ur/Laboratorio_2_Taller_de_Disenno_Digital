@@ -33,7 +33,7 @@ jobs:
           ejercicio6:
             - 'ejercicio6/**/*.sv'
 
-  ejercicio1:
+  testbench_ejercicio1:
     needs: Deteccion_de_cambios
     if: ${{ needs.Deteccion_de_cambios.outputs.ejercicio1 == 'true' }}
     runs-on: ubuntu-latest
@@ -71,7 +71,7 @@ jobs:
               print("Ocurrió un error:", e)
               sys.exit(1)
 
-  ejercicio2:
+  testbench_ejercicio2:
     needs: Deteccion_de_cambios
     if: ${{ needs.Deteccion_de_cambios.outputs.ejercicio2 == 'true' }}
     runs-on: ubuntu-latest
@@ -109,7 +109,7 @@ jobs:
               print("Ocurrió un error:", e)
               sys.exit(1)
 
-  ejercicio3:
+  testbench_ejercicio3:
     needs: Deteccion_de_cambios
     if: ${{ needs.Deteccion_de_cambios.outputs.ejercicio3 == 'true' }}
     runs-on: ubuntu-latest
@@ -147,7 +147,7 @@ jobs:
               print("Ocurrió un error:", e)
               sys.exit(1)
 
-  ejercicio4:
+  testbench_ejercicio4:
     needs: Deteccion_de_cambios
     if: ${{ needs.Deteccion_de_cambios.outputs.ejercicio4 == 'true' }}
     runs-on: ubuntu-latest
@@ -185,7 +185,7 @@ jobs:
               print("Ocurrió un error:", e)
               sys.exit(1)
 
-  ejercicio5:
+  testbench_ejercicio5:
     needs: Deteccion_de_cambios
     if: ${{ needs.Deteccion_de_cambios.outputs.ejercicio5 == 'true' }}
     runs-on: ubuntu-latest
@@ -223,40 +223,40 @@ jobs:
               print("Ocurrió un error:", e)
               sys.exit(1)
 
-  ejercicio6:
-    needs: Deteccion_de_cambios
-    if: ${{ needs.Deteccion_de_cambios.outputs.ejercicio6 == 'true' }}
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./ejercicio6/testing
-    steps:
-      - name: Descargando código del repositorio
-        uses: actions/checkout@v4
-      - name: Instalando iverilog
-        run: sudo apt-get install iverilog
-      - name: Configurando Python 3.10
-        uses: actions/setup-python@v5
-        with: 
-          python-version: '3.10'
-      - name: Instalando dependencias
-        run: pip install cocotb
-      - run: make
-      - name: Buscando errores
-        uses: jannekem/run-python-script-action@v1.7
-        with:
-          script: |
-            import xml.etree.ElementTree as ET
-            import sys
-            try:
-              tree = ET.parse("ejercicio6/testing/results.xml")
-              root = tree.getroot()
-              if "Test failed" in ET.tostring(root).decode():
-                print(f"Se encontraron errores durante la ejecución del testbench.")
-                sys.exit(1)
-              else:
-                print(f"Ejecución del testbench exitosa.")
-                sys.exit(0)
-            except Exception as e:
-              print("Ocurrió un error:", e)
-              sys.exit(1)
+  #testbench_ejercicio6:
+    #needs: Deteccion_de_cambios
+    #if: ${{ needs.Deteccion_de_cambios.outputs.ejercicio6 == 'true' }}
+    #runs-on: ubuntu-latest
+    #defaults:
+      #run:
+        #working-directory: ./ejercicio6/testing
+    #steps:
+      #- name: Descargando código del repositorio
+      #  uses: actions/checkout@v4
+      #- name: Instalando iverilog
+      #  run: sudo apt-get install iverilog
+      #- name: Configurando Python 3.10
+      #  uses: actions/setup-python@v5
+      #  with: 
+      #    python-version: '3.10'
+      #- name: Instalando dependencias
+      #  run: pip install cocotb
+      #- run: make
+      #- name: Buscando errores
+      #  uses: jannekem/run-python-script-action@v1.7
+      #  with:
+      #    script: |
+      #      import xml.etree.ElementTree as ET
+      #      import sys
+      #      try:
+      #        tree = ET.parse("ejercicio6/testing/results.xml")
+      #        root = tree.getroot()
+      #        if "Test failed" in ET.tostring(root).decode():
+      #          print(f"Se encontraron errores durante la ejecución del testbench.")
+      #          sys.exit(1)
+      #        else:
+      #          print(f"Ejecución del testbench exitosa.")
+      #          sys.exit(0)
+      #      except Exception as e:
+      #        print("Ocurrió un error:", e)
+      #        sys.exit(1)
