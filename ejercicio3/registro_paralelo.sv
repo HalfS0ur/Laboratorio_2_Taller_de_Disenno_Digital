@@ -22,4 +22,4 @@ module registro_paralelo(
     end
     
     assign data_o = data;
-endmodule
+endmodule //

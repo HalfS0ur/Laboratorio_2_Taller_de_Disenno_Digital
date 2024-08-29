@@ -120,6 +120,18 @@ jobs:
             except Exception as e:
               print("Ocurrió un error:", e)
               sys.exit(1)
+           
+  sintesis_ejercicio2:
+    needs: testbench_ejercicio2
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./ejercicio2/synthesis
+    steps:
+      - name: Descargando el código del repositorio
+        uses: actions/checkout@v4
+      - name: Sintetizando módulo(s)
+        run: bash ../../.github/scripts/synthesis_script.sh -a
 
   testbench_ejercicio3:
     needs: Deteccion_de_cambios
@@ -159,6 +171,18 @@ jobs:
               print("Ocurrió un error:", e)
               sys.exit(1)
 
+  sintesis_ejercicio3:
+    needs: testbench_ejercicio3
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./ejercicio3/synthesis
+    steps:
+      - name: Descargando el código del repositorio
+        uses: actions/checkout@v4
+      - name: Sintetizando módulo(s)
+        run: bash ../../.github/scripts/synthesis_script.sh -a
+
   testbench_ejercicio4:
     needs: Deteccion_de_cambios
     if: ${{ needs.Deteccion_de_cambios.outputs.ejercicio4 == 'true' }}
@@ -196,6 +220,18 @@ jobs:
             except Exception as e:
               print("Ocurrió un error:", e)
               sys.exit(1)
+
+  sintesis_ejercicio4:
+    needs: testbench_ejercicio4
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./ejercicio4/synthesis
+    steps:
+      - name: Descargando el código del repositorio
+        uses: actions/checkout@v4
+      - name: Sintetizando módulo(s)
+        run: bash ../../.github/scripts/synthesis_script.sh -a
 
   testbench_ejercicio5:
     needs: Deteccion_de_cambios
@@ -235,6 +271,18 @@ jobs:
               print("Ocurrió un error:", e)
               sys.exit(1)
 
+  sintesis_ejercicio5:
+    needs: testbench_ejercicio5
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./ejercicio5/synthesis
+    steps:
+      - name: Descargando el código del repositorio
+        uses: actions/checkout@v4
+      - name: Sintetizando módulo(s)
+        run: bash ../../.github/scripts/synthesis_script.sh -a
+
   #testbench_ejercicio6:
     #needs: Deteccion_de_cambios
     #if: ${{ needs.Deteccion_de_cambios.outputs.ejercicio6 == 'true' }}
@@ -272,3 +320,15 @@ jobs:
       #      except Exception as e:
       #        print("Ocurrió un error:", e)
       #        sys.exit(1)
+
+  #sintesis_ejercicio6:
+    #needs: testbench_ejercicio6
+    #runs-on: ubuntu-latest
+    #defaults:
+      #run:
+        #working-directory: ./ejercicio6/synthesis
+    #steps:
+      #- name: Descargando el código del repositorio
+      #  uses: actions/checkout@v4
+      #- name: Sintetizando módulo(s)
+      #  run: bash ../../.github/scripts/synthesis_script.sh -a

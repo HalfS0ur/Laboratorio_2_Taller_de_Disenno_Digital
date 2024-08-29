@@ -4,7 +4,7 @@ module contador (
     input logic clk, // clock signal
     input logic reset_i, // synchronous reset input
     input logic boton_i, // previous module output
-    output logic [7:0] conta_o // 8-bit count output
+    output logic [7:0] conta_o // 8-bit count output.
 );
 
     // define internal signals

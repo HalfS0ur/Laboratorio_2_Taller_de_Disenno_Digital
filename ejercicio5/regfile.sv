@@ -21,7 +21,7 @@ module regfile
     always_ff @(negedge clk_i or posedge reset_i) begin
         if (reset_i) begin
             for (int i = 0; i<32; i++) begin
-                rf[i] <= 0; //.
+                rf[i] <= 0; //..
             end
         end
         
