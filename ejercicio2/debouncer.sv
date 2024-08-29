@@ -10,7 +10,7 @@ module debouncer(
     
     logic [CUENTA_DB-1:0] cuenta = 0;
     logic boton_pasado = 1;
-    logic boton_debounceado = boton_pi;
+    logic boton_debounceado;
     
     always @(posedge clk)
     begin
