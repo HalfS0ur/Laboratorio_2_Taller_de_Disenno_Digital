@@ -71,6 +71,18 @@ jobs:
               print("Ocurrió un error:", e)
               sys.exit(1)
 
+  sintesis_ejercicio1:
+    needs: testbench_ejercicio1
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./ejercicio1/synthesis
+    steps:
+      - name: Descargando el código del repositorio
+        uses: actions/checkout@v4
+      - name: Sintetizando módulo(s)
+        run: bash ../../.github/scripts/synthesis_script.sh -a
+
   testbench_ejercicio2:
     needs: Deteccion_de_cambios
     if: ${{ needs.Deteccion_de_cambios.outputs.ejercicio2 == 'true' }}
