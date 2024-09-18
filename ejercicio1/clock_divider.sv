@@ -5,7 +5,7 @@ module clock_divider (
     output logic led_o
 );
 
-logic [23:0] cuenta = 0; // declare a counter to keep track of time..
+logic [23:0] cuenta = 0; // declare a counter to keep track of time.
 logic estado_LED = 0;
 
 always @(posedge clk_i) begin
